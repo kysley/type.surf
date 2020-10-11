@@ -1,0 +1,6 @@
+Words = number of words
+Time = time limit
+Takedown = ??
+Time Attack = N tries
+Arcade = mods are enabled
+
