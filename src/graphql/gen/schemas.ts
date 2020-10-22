@@ -7,41 +7,36 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  /** Use JavaScript Date object for date/time fields. */
+  /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
-  /** The `JSON` scalar type represents JSON objects as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  Json: any;
 };
 
 export type Query = {
   __typename?: 'Query';
   me?: Maybe<Account>;
-  map?: Maybe<Map>;
+  mapById?: Maybe<Map>;
 };
 
-export type QueryMapArgs = {
+export type QueryMapByIdArgs = {
   id: Scalars['ID'];
 };
 
 export type Account = {
   __typename?: 'Account';
-  color?: Maybe<Scalars['String']>;
+  history: Array<Result>;
   confirmed: Scalars['Boolean'];
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   id: Scalars['String'];
   lastSeen: Scalars['DateTime'];
+  maps: Array<Map>;
+  rank: Rank;
   role: Role;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
-  digits: Scalars['Int'];
-  rank: Rank;
-  history: Array<Result>;
-  maps: Array<Map>;
 };
 
 export type AccountHistoryArgs = {
-  orderBy?: Maybe<AccountHistoryOrderByInput>;
   first?: Maybe<Scalars['Int']>;
   last?: Maybe<Scalars['Int']>;
   before?: Maybe<ResultWhereUniqueInput>;
@@ -55,102 +50,77 @@ export type AccountMapsArgs = {
   after?: Maybe<MapWhereUniqueInput>;
 };
 
-export enum Role {
-  User = 'USER',
-  Admin = 'ADMIN',
-  Pro = 'PRO',
-  Beta = 'BETA',
-}
-
-export enum Rank {
-  Novice = 'Novice',
-  Beginner = 'Beginner',
-  Competent = 'Competent',
-  Proficient = 'Proficient',
-  Expert = 'Expert',
-  Master = 'Master',
-}
-
-export type AccountHistoryOrderByInput = {
-  createdAt?: Maybe<OrderByArg>;
-  mode?: Maybe<OrderByArg>;
-  wpm?: Maybe<OrderByArg>;
-};
-
-export enum OrderByArg {
-  Asc = 'asc',
-  Desc = 'desc',
-}
-
 export type ResultWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
 export type Result = {
   __typename?: 'Result';
+  account: Account;
   correct: Scalars['Int'];
   corrections: Scalars['Int'];
   cpm: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   id: Scalars['String'];
   incorrect: Scalars['Int'];
-  rawCpm: Scalars['Int'];
+  map?: Maybe<Map>;
   mode: Mode;
   mods: Array<Mods>;
+  rawCpm: Scalars['Int'];
   wordIndex: Scalars['Int'];
   wpm: Scalars['Int'];
-  map?: Maybe<Map>;
-  account: Account;
+};
+
+export type Map = {
+  __typename?: 'Map';
+  createdAt: Scalars['DateTime'];
+  creator?: Maybe<Account>;
+  custom?: Maybe<Scalars['Boolean']>;
+  id: Scalars['String'];
+  name: Scalars['String'];
+  published?: Maybe<Scalars['Boolean']>;
+  updatedAt: Scalars['DateTime'];
+  wordset: Scalars['String'];
 };
 
 export enum Mode {
   Classic = 'Classic',
   Race = 'Race',
-  TimeAttack = 'TimeAttack',
   Takedown = 'Takedown',
+  TimeAttack = 'TimeAttack',
 }
 
 export enum Mods {
-  Rush = 'Rush',
   Perfectionist = 'Perfectionist',
-}
-
-export type Map = {
-  __typename?: 'Map';
-  id: Scalars['String'];
-  name: Scalars['String'];
-  mode: Mode;
-  mods: Array<Mods>;
-  createdAt: Scalars['DateTime'];
-  updatedAt: Scalars['DateTime'];
-  custom?: Maybe<Scalars['Boolean']>;
-  difficulty?: Maybe<Difficulty>;
-  description?: Maybe<Scalars['String']>;
-  published?: Maybe<Scalars['Boolean']>;
-  wordset: Scalars['String'];
-  creator?: Maybe<Account>;
-};
-
-export enum Difficulty {
-  Easy = 'EASY',
-  Normal = 'NORMAL',
-  Medium = 'MEDIUM',
-  Hard = 'HARD',
+  Rush = 'Rush',
 }
 
 export type MapWhereUniqueInput = {
   id?: Maybe<Scalars['String']>;
 };
 
+export enum Rank {
+  Beginner = 'Beginner',
+  Competent = 'Competent',
+  Expert = 'Expert',
+  Master = 'Master',
+  Novice = 'Novice',
+  Proficient = 'Proficient',
+}
+
+export enum Role {
+  Admin = 'ADMIN',
+  Beta = 'BETA',
+  Pro = 'PRO',
+  User = 'USER',
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   createAccount: AuthPayload;
-  wordset?: Maybe<Scalars['String']>;
   login?: Maybe<AuthPayload>;
-  loginWithDiscord?: Maybe<AuthPayload>;
-  createMap?: Maybe<Map>;
-  updateMap?: Maybe<Map>;
-  createResult?: Maybe<Result>;
+  wordset?: Maybe<Scalars['String']>;
+  createResult?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationCreateAccountArgs = {
@@ -159,22 +129,15 @@ export type MutationCreateAccountArgs = {
   username: Scalars['String'];
 };
 
-export type MutationWordsetArgs = {
-  length?: Maybe<Scalars['Int']>;
-};
-
 export type MutationLoginArgs = {
   username: Scalars['String'];
   password: Scalars['String'];
 };
 
-export type MutationCreateMapArgs = {
-  data: MapInput;
-};
-
-export type MutationUpdateMapArgs = {
-  id: Scalars['ID'];
-  data: MapInput;
+export type MutationWordsetArgs = {
+  count: Scalars['Int'];
+  seed?: Maybe<Scalars['String']>;
+  punctuate?: Maybe<Scalars['Boolean']>;
 };
 
 export type MutationCreateResultArgs = {
@@ -184,25 +147,44 @@ export type MutationCreateResultArgs = {
 
 export type AuthPayload = {
   __typename?: 'AuthPayload';
-  token?: Maybe<Scalars['String']>;
   account?: Maybe<Account>;
-};
-
-export type MapInput = {
-  name: Scalars['String'];
-  mods?: Maybe<Array<Mods>>;
-  description?: Maybe<Scalars['String']>;
-  wordSet: Scalars['String'];
+  token?: Maybe<Scalars['String']>;
 };
 
 export type ResultInput = {
   correct: Scalars['Int'];
   corrections: Scalars['Int'];
   cpm: Scalars['Int'];
-  incorrect: Scalars['Int'];
   rawCpm: Scalars['Int'];
-  mods?: Maybe<Array<Mods>>;
-  mode: Mode;
-  wordIndex: Scalars['Int'];
   wpm: Scalars['Int'];
+  rawWpm: Scalars['Int'];
+  incorrect: Scalars['Int'];
+  wordIndex: Scalars['Int'];
+  letterIndex: Scalars['Int'];
+  history: Scalars['Int'];
+  punctuated: Scalars['Boolean'];
+  state: Scalars['String'];
+  seed?: Maybe<Scalars['String']>;
+  mode: Mode;
+  slug: Scalars['String'];
+  mods: Array<Maybe<Mods>>;
+  mapId: Scalars['ID'];
 };
+
+export type AccountHistoryOrderByInput = {
+  createdAt?: Maybe<SortOrder>;
+  mode?: Maybe<SortOrder>;
+  wpm?: Maybe<SortOrder>;
+};
+
+export enum SortOrder {
+  Asc = 'asc',
+  Desc = 'desc',
+}
+
+export enum Difficulty {
+  Easy = 'EASY',
+  Hard = 'HARD',
+  Medium = 'MEDIUM',
+  Normal = 'NORMAL',
+}

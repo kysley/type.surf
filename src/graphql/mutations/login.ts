@@ -5,7 +5,7 @@ export const LOGIN = gql`
     login(username: $username, password: $password) {
       token
       account {
-        color
+        # color
         confirmed
         email
         lastSeen
