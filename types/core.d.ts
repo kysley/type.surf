@@ -18,3 +18,13 @@ type Mod = {
   condition?: boolean;
   terminating?: boolean;
 };
+
+type testMeta = {
+  wordList: string[];
+  letterIndex: number;
+  wordIndex: number;
+  word: string;
+  wordState: WordState[];
+  testState: TestState;
+  history: boolean[];
+};

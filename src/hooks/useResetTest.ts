@@ -9,11 +9,11 @@ import {
   testHistory,
   wordState,
 } from '../state';
-import {useLoadWordSet} from './useLoadWordSet';
+// import {useLoadWordSet} from './useLoadWordSet';
 
 export function useResetTest() {
   const [wordListState, setWordList] = useRecoilState(wordList);
-  const {fetchAndSet} = useLoadWordSet();
+  // const {fetchAndSet} = useLoadWordSet();
 
   // const [] = useResetRecoilState(wordIndex);
   // const [] = useResetRecoilState(letterIndex);
@@ -34,7 +34,7 @@ export function useResetTest() {
     reset(letterIndex);
     reset(testTypingState);
     reset(testTime);
-    fetchAndSet();
+    // fetchAndSet();
   });
 
   return {

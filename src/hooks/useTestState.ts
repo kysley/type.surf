@@ -1,10 +1,18 @@
 import type {MutationWordsetArgs} from '../graphql/gen/schemas';
-import type {WordsetMutation} from '../graphql/gen/operations';
+// import type {WordsetMutation} from '../graphql/gen/operations';
 import {useMutation} from 'urql';
 import Recoil from 'recoil';
 
-import {WORDSET} from '../graphql/mutations/wordset';
-import {wordList, wordState, testTypingState, testTime, wordIndex, letterIndex, testHistory} from '../state';
+// import {WORDSET} from '../graphql/mutations/wordset';
+import {
+  wordList,
+  wordState,
+  testTypingState,
+  testTime,
+  wordIndex,
+  letterIndex,
+  testHistory,
+} from '../state';
 
 const {
   useSetRecoilState,
@@ -14,9 +22,8 @@ const {
   useRecoilValue,
 } = Recoil;
 
-
 export function useTestState() {
-  const [, fetch] = useMutation<WordsetMutation, MutationWordsetArgs>(WORDSET);
+  // const [, fetch] = useMutation<WordsetMutation, MutationWordsetArgs>(WORDSET);
   const [wL, set] = useRecoilState(wordList);
 
   const resetWordState = useRecoilCallback(({reset, snapshot}) => async () => {
@@ -37,14 +44,12 @@ export function useTestState() {
   });
 
   const loadNewTest = async () => {
-    const {data, error} = await fetch();
-
-    if (!error && data?.wordset) {
-      console.log('fetch complete');
-
-      await resetWordState();
-      set(data.wordset.split('|'));
-    }
+    // const {data, error} = await fetch();
+    // if (!error && data?.wordset) {
+    //   console.log('fetch complete');
+    //   await resetWordState();
+    //   set(data.wordset.split('|'));
+    // }
   };
 
   return {loadNewTest, resetWordState};

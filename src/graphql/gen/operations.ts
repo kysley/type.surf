@@ -1,4 +1,4 @@
-import * as Types from './schemas';
+import type * as Types from './schemas';
 
 export type CreateAccountMutationVariables = Types.Exact<{
   email: Types.Scalars['String'];

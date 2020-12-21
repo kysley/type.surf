@@ -105,7 +105,7 @@ export const testTypingState = atom<TestState>({
   default: 'WAITING',
 });
 
-export const testMeta = selector({
+export const testMeta = selector<testMeta>({
   key: 'gameState',
   get: ({get}) => {
     const wL = get(wordList);
@@ -116,7 +116,15 @@ export const testMeta = selector({
     const tS = get(testTypingState);
     const h = get(testHistory);
 
-    return {lI, wI, w, wS, tS, wL, h};
+    return {
+      letterIndex: lI,
+      wordIndex: wI,
+      word: w,
+      wordState: wS,
+      testState: tS,
+      wordList: wL,
+      history: h,
+    };
   },
 });
 

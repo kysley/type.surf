@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import WordsMix from './WordsMix';
 import useTyping from '../../../hooks/useTyping';
-import ResetMix from './ResetMix';
 
 const CompositionContainer = styled.section`
   display: grid;
@@ -20,7 +19,7 @@ const CompositionContainer = styled.section`
 
 const TypingAreaComposition = () => {
   const [focused, setFocused] = useState(false);
-  // const {resetTest} = useTyping({when: focused});
+  useTyping({when: focused});
 
   return (
     <CompositionContainer>

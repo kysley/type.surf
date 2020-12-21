@@ -2,12 +2,7 @@ import React, {memo} from 'react';
 import Recoil from 'recoil';
 import styled from 'styled-components';
 
-import {
-  wordState,
-  testHistory,
-  historyFromIndex,
-  wordStateWhereIndex,
-} from '../state';
+import {historyFromIndex, wordStateWhereIndex} from '../state';
 import Letter from './Letter';
 
 const {useRecoilValue} = Recoil;

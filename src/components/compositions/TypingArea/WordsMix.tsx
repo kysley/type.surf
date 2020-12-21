@@ -1,13 +1,10 @@
-import React, {useState, memo, useRef, useEffect} from 'react';
+import React, {useRef, useEffect} from 'react';
 import styled from 'styled-components';
-import Recoil from 'recoil';
+import {useRecoilValue} from 'recoil';
 import {useSpring, animated} from 'react-spring';
 
-import {wordList, testHistory, wordIndex, letterIndex} from '../../../state';
-import useTyping from '../../../hooks/useTyping';
+import {wordList, wordIndex, letterIndex} from '../../../state';
 import Word from '../../Word';
-
-const {useRecoilState, useRecoilValue} = Recoil;
 
 const BUMP_PX = 30;
 
