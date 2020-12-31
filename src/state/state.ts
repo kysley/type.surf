@@ -1,4 +1,4 @@
-import {atom, atomFamily, selector, selectorFamily} from 'recoil';
+import {atom} from 'recoil';
 import {v4 as uuid} from 'uuid';
 import produce from 'immer';
 
@@ -83,6 +83,8 @@ export function back(meta: testMeta): backReturn {
     return draft > 0 ? draft - 1 : 0;
   });
 
+  ret.eol = false;
+
   return ret as backReturn;
 }
 
@@ -159,5 +161,10 @@ export function back(meta: testMeta): backReturn {
 // // })
 export const focusedState = atom({
   key: 'focusedState',
+  default: false,
+});
+
+export const EOLState = atom({
+  key: 'eolstate',
   default: false,
 });

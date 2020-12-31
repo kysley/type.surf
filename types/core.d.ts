@@ -27,4 +27,5 @@ type testMeta = {
   wordState: WordState[];
   testState: TestState;
   history: boolean[];
+  eol: boolean;
 };

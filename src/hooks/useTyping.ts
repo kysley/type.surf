@@ -25,9 +25,11 @@ const useTyping = ({ref, when = true}: useTypingProps) => {
 
       switch (cat) {
         case 'AZ09': {
-          const newWs = newWordState(key, meta);
-          set(wordState(meta.wordIndex), newWs);
-          set(letterIndex, (prev) => prev + 1);
+          if (!meta.eol) {
+            const newWs = newWordState(key, meta);
+            set(wordState(meta.wordIndex), newWs);
+            set(letterIndex, (prev) => prev + 1);
+          }
           break;
         }
         case 'Backspace': {

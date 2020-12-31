@@ -1,5 +1,6 @@
 import Recoil from 'recoil';
 import {v4 as uuid} from 'uuid';
+import {EOLState} from './state';
 
 const {atom, atomFamily, selector, selectorFamily} = Recoil;
 
@@ -115,6 +116,7 @@ export const testMeta = selector<testMeta>({
     const wS = get(wordState(wI));
     const tS = get(testTypingState);
     const h = get(testHistory);
+    const eol = get(EOLState);
 
     return {
       letterIndex: lI,
@@ -124,6 +126,7 @@ export const testMeta = selector<testMeta>({
       testState: tS,
       wordList: wL,
       history: h,
+      eol,
     };
   },
 });
