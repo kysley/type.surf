@@ -12,6 +12,7 @@ const WordContainer = styled.div<{correct: boolean | undefined}>`
   border-bottom: ${({correct}) =>
     correct !== undefined && !correct && '2px solid var(--miss-color)'};
   margin: 0.25em;
+  font-size: 1.4em;
 `;
 
 const Word = ({i}: {i: number}) => {

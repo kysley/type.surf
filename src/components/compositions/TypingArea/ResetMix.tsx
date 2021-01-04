@@ -1,12 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import {useTestState} from '../../../hooks/useTestState';
+import {Box} from '../../../components/Box';
 import {Selection} from '../../ListBox/ListBox';
 
-const ResetContainer = styled.div`
+const ContextContainer = styled(Box)`
   width: 100%;
-  grid-area: reset;
+  height: 100%;
+  background: red;
+  grid-area: typing;
   position: relative;
   > button {
     width: 100%;
@@ -24,25 +26,14 @@ const TimeSelectionOptions: {value: string; label: string}[] = [
   {value: '15', label: '15'},
 ];
 
-interface ResetMixProps {
-  reset: (...arg0: any) => any;
-}
-
-const ResetMix = ({reset}: ResetMixProps) => {
-  const {loadNewTest, resetWordState} = useTestState();
-
-  const retry = () => {
-    reset();
-    resetWordState();
-  };
-
-  const brandNew = async () => {
-    reset();
-    await loadNewTest();
-  };
-
+export const ContextMix = () => {
   return (
-    <ResetContainer>
+    <ContextContainer
+      tabIndex={1}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+    >
       {/* <button onClick={brandNew}>reset</button> */}
       {/* <div> */}
       <Selection
@@ -58,9 +49,8 @@ const ResetMix = ({reset}: ResetMixProps) => {
         callback={(v) => console.log(v)}
         defaultValue="60"
       />
+      {/* <button onClick={() => _join('123')}>join</button> */}
       {/* </div> */}
-    </ResetContainer>
+    </ContextContainer>
   );
 };
-
-export default ResetMix;
