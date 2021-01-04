@@ -1,9 +1,8 @@
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
-import Recoil from 'recoil';
+import {RecoilRoot} from 'recoil';
 import {Provider as UrqlProvider} from 'urql';
-
-const {RecoilRoot} = Recoil;
+import {BrowserRouter} from 'react-router-dom';
 
 import App from './App';
 import './index.css';
@@ -12,11 +11,13 @@ import {urqlClient} from './utils/urqlClient';
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
-      <UrqlProvider value={urqlClient}>
-        <Suspense fallback={<></>}>
-          <App />
-        </Suspense>
-      </UrqlProvider>
+      <BrowserRouter>
+        <UrqlProvider value={urqlClient}>
+          <Suspense fallback={<></>}>
+            <App />
+          </Suspense>
+        </UrqlProvider>
+      </BrowserRouter>
     </RecoilRoot>
   </React.StrictMode>,
   document.getElementById('root'),
