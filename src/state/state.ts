@@ -168,3 +168,8 @@ export const EOLState = atom({
   key: 'eolstate',
   default: false,
 });
+
+export const contextualWindowState = atom({
+  key: 'contextualwindowstate',
+  default: false,
+});
