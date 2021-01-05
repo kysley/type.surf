@@ -40,6 +40,8 @@ const WordsMix = () => {
   const wI = useRecoilValue(wordIndex);
   const [top, set] = useSpring(() => ({top: 0}));
 
+  // I read somewhere that getBoundingClientRect().value
+  // reads from a cached copy, so this wouldnt cause reflow?
   const getVerticalDistanceBetweenWords = () => {
     if (breakRef.current && containerRef.current) {
       const id1 = breakRef.current[0];
@@ -55,13 +57,22 @@ const WordsMix = () => {
   };
 
   useEffect(() => {
+    // reset the line tracker and top styling
+    // this will probably break when you can backspace across words
+    if (wI === 0) {
+      set({top: 0});
+      setLine(0);
+    }
+    // THE END OF THE LINE?
     const bumpOnIndex = breakRef.current?.indexOf(wI) ?? -1;
-    console.log(bumpOnIndex);
     if (bumpOnIndex !== -1) {
       setLine((prev) => prev + 1);
     }
   }, [set, wI]);
 
+  // only scroll if we are past the first line.
+  // start on first line, caret moves to second line.
+  // end of second line, we want to move the words up
   useEffect(() => {
     if (line > 1) set({top: -((line - 1) * getVerticalDistanceBetweenWords())});
   }, [line, set]);
@@ -71,6 +82,7 @@ const WordsMix = () => {
     if (containerRef.current) {
       const domWords = [...containerRef.current.children];
       let prev = 0;
+      // if the next word doesnt have the same top value, thats a break point to scroll at
       domWords.forEach((self, idx) => {
         const cur = self.getBoundingClientRect().top;
         if (cur !== prev) {

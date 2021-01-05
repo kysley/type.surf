@@ -47,6 +47,12 @@ export const Caret = ({
     [breaks, container],
   );
 
+  // reset the caret position if wordIndex goes back to 0
+  // this will probably break once we allow backspacing across words
+  useEffect(() => {
+    if (wordIdx === 0) setCaretPos({marginLeft: 0, top: 5});
+  }, [setCaretPos, wordIdx]);
+
   useEffect(() => {
     if (container.current) {
       const parentDom = container.current.getBoundingClientRect();
@@ -62,7 +68,8 @@ export const Caret = ({
             letters.length - 1
           ].getBoundingClientRect().right;
 
-          // there isnt space to fit another word
+          // if isnt space to fit another letter
+          // aka causing the word to wrap
           newLeft = lastLetterDomRight - parentDom.x;
           if (
             parentDom.right - lastLetterDomRight <
@@ -71,6 +78,7 @@ export const Caret = ({
             // FORCE NONO ENTER TYPE
             setEOL(true);
           }
+          // else, shift the caret right
         } else {
           setEOL(false);
           const posLeft = letters[letterIdx].getBoundingClientRect().left;
