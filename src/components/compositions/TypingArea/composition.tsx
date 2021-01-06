@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {useRecoilState, useRecoilValue} from 'recoil';
+import {useRecoilState} from 'recoil';
 
 import WordsMix from './WordsMix';
-import {ContextMix} from './ResetMix';
+import {ContextMix} from './ContextMix';
 import useTyping from '../../../hooks/useTyping';
 import {CaptureFocus} from '../../../components/CaptureFocus';
 import {Box} from '../../../components/Box';
@@ -14,18 +14,17 @@ const CompositionContainer = styled(Box)`
   display: grid;
   grid-area: main;
   grid-template-areas:
-    'mods time'
     'typing typing'
-    'reset reset'
+    'context context'
     'results results';
   grid-template-columns: 1fr 3fr;
   grid-template-rows: auto;
   width: 50vw;
   position: relative;
+  gap: 1em;
 `;
 
 const TypingAreaComposition = () => {
-  // const [focused, setFocused] = useState(false);
   const [focused, setFocusedState] = useRecoilState(focusedState);
   const [contextOpen, setContextState] = useRecoilState(contextualWindowState);
 
@@ -35,7 +34,6 @@ const TypingAreaComposition = () => {
       console.log('contextual state true');
       setContextState(true);
       setFocusedState(false);
-      // document.activeElement.blur();
     },
     focused,
   );
@@ -57,8 +55,7 @@ const TypingAreaComposition = () => {
       <CaptureFocus>
         <CompositionContainer>
           <WordsMix />
-          {contextOpen && <ContextMix />}
-          {/* <ResetMix /> */}
+          <ContextMix />
         </CompositionContainer>
       </CaptureFocus>
     </Box>
