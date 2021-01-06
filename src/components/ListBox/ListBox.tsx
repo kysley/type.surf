@@ -1,4 +1,5 @@
 import React, {useState, useMemo, useCallback} from 'react';
+import {color, space} from 'styled-system';
 import {
   ListboxInput,
   ListboxButton,
@@ -11,9 +12,12 @@ import styled from 'styled-components';
 
 import '@reach/listbox/styles.css';
 
-const List = styled(Listbox)`
-  background: black;
-  border-radius: 3px;
+const StyledListboxInput = styled(ListboxPopover)`
+  ${color};
+  ${space};
+  /* border-radius: 4px; */
+  outline: 0;
+  border: none;
 `;
 
 type Option<T> = {
@@ -54,12 +58,14 @@ export function Selection<T>({
   return (
     <div>
       <ListboxInput
+        // color="blue"
         onChange={handleChange}
         value={value}
+        // bg="yellow"
         // defaultValue={defaultValue}
       >
-        <ListboxButton arrow="v" />
-        <ListboxPopover>
+        <ListboxButton arrow="v" style={{border: 'none'}} />
+        <StyledListboxInput>
           <ListboxList>
             {options.map((opt, idx) => (
               <ListboxOption value={opt.value} key={opt.key || opt.value}>
@@ -67,7 +73,7 @@ export function Selection<T>({
               </ListboxOption>
             ))}
           </ListboxList>
-        </ListboxPopover>
+        </StyledListboxInput>
       </ListboxInput>
     </div>
   );
