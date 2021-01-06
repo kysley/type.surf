@@ -10,6 +10,8 @@
   "dependencies": {
     "@reach/listbox": "^0.12.1",
     "@reach/menu-button": "^0.12.1",
+    "@styled-icons/feather": "^10.18.0",
+    "color2k": "^1.1.1",
     "graphql": "^15.4.0",
     "history": "^5.0.0",
     "immer": "^8.0.0",
@@ -47,6 +49,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/styled-components": "^5.1.4",
+    "@types/styled-system": "^5.1.10",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",

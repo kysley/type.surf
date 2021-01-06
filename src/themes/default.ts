@@ -1,3 +1,5 @@
+import {darken} from 'color2k';
+
 type themeFactoryColors = {
   primary: string;
   secondary: string;
@@ -16,6 +18,7 @@ export function themeFactory(colors: themeFactoryColors) {
     colors: {
       ...colors,
       caret: colors.caret ?? colors.primary,
+      primary2: darken(colors.primary, 0.05),
     },
   };
 }
