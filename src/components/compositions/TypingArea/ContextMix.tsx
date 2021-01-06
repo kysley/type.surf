@@ -1,22 +1,20 @@
 import React from 'react';
+import {useRecoilCallback} from 'recoil';
 import styled from 'styled-components';
+import {Repeat} from '@styled-icons/feather';
 
+import {letterIndex, wordIndex, wordState} from '../../../state';
+import {wordList} from '../../../state';
 import {Box} from '../../../components/Box';
 import {Selection} from '../../ListBox/ListBox';
+import {Button} from '../../../components/Button';
 
 const ContextContainer = styled(Box)`
   width: 100%;
   height: 100%;
-  background: red;
-  grid-area: typing;
+  /* background: red; */
+  grid-area: context;
   position: relative;
-  > button {
-    width: 100%;
-    height: 100%;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
 `;
 
 const TimeSelectionOptions: {value: string; label: string}[] = [
@@ -27,15 +25,29 @@ const TimeSelectionOptions: {value: string; label: string}[] = [
 ];
 
 export const ContextMix = () => {
+  const tester = useRecoilCallback(({snapshot, reset}) => async () => {
+    const wordlist = await snapshot.getPromise(wordList);
+    for (let i = wordlist.length; i--; i >= 0) {
+      reset(wordState(i));
+    }
+
+    reset(wordIndex);
+    reset(letterIndex);
+  });
   return (
     <ContextContainer
       tabIndex={1}
       display="flex"
       justifyContent="center"
       alignItems="center"
+      bg="secondary"
+      p={2}
     >
       {/* <button onClick={brandNew}>reset</button> */}
       {/* <div> */}
+      <Button variant="primary" onClick={tester}>
+        <Repeat size={24} title="Restart Test" />
+      </Button>
       <Selection
         options={[
           {label: 'time', value: 'time'},
