@@ -7,15 +7,19 @@ import {BrowserRouter} from 'react-router-dom';
 import App from './App';
 import './index.css';
 import {urqlClient} from './utils/urqlClient';
+import {SocketProvider} from './hooks/useSocketHandler';
+import {socket} from './utils/socket';
 
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>
       <BrowserRouter>
         <UrqlProvider value={urqlClient}>
-          <Suspense fallback={<></>}>
-            <App />
-          </Suspense>
+          <SocketProvider>
+            <Suspense fallback={<></>}>
+              <App />
+            </Suspense>
+          </SocketProvider>
         </UrqlProvider>
       </BrowserRouter>
     </RecoilRoot>

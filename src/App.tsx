@@ -7,6 +7,7 @@ import TypingAreaCompsition from './components/compositions/TypingArea/compositi
 import {DevTools} from './components/DevTools';
 import {themeFactory} from './themes/default';
 import {Box} from './components/Box';
+import {LobbyComposition} from './components/compositions/Lobby/composition';
 
 const AppWrapper = styled.div`
   width: 90vw;
@@ -38,10 +39,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box color="text" bg="background" width="100vw" margin="auto">
         <AppContainer>
-          {/* <TypingAreaCompsition /> */}
           <DevTools />
           <Routes>
             <Route path="/" element={<TypingAreaCompsition />} />
+            <Route path="p/:id" element={<LobbyComposition />} />
           </Routes>
         </AppContainer>
       </Box>

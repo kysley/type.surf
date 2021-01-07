@@ -1,13 +1,14 @@
 import React from 'react';
 import {useRecoilValue} from 'recoil';
 
-import {socket} from '../utils/socket';
 import {contextualWindowState, focusedState} from '../state/state';
 import {Box} from './Box';
+import {useSocketConnection} from '../hooks/useSocketHandler';
 
 // import {socket} from '../utils/socket';
 
 export const DevTools = () => {
+  const {socket} = useSocketConnection();
   const context = useRecoilValue(contextualWindowState);
   const focus = useRecoilValue(focusedState);
   const _join = (roomId: string) => {
@@ -23,6 +24,7 @@ export const DevTools = () => {
       <button onClick={() => _join('123')}>Join Test Room</button>
       <span>focused: {JSON.stringify(focus)}</span>
       <span>context: {JSON.stringify(context)}</span>
+      <span>socket: {socket.connected ? 'conn' : 'x'}</span>
     </Box>
   );
 };

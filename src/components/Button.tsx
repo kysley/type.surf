@@ -11,6 +11,7 @@ const Button2 = styled('button')(
     cursor: 'pointer',
     fontSize: '1rem',
     padding: '.75em 1.5em',
+    width: '100%',
   },
   variant({
     variants: {
@@ -32,8 +33,8 @@ const Button2 = styled('button')(
 );
 
 type ButtonProps = {
-  variant: 'primary' | 'secondary';
-  onClick: () => any;
+  variant?: 'primary' | 'secondary';
+  onClick?: () => any;
 } & SpaceProps &
   BorderProps;
 
@@ -44,6 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   return (
+    //@ts-ignore the stupid variant types freak out on Button2
     <Button2 variant={variant} onClick={onClick} {...rest}>
       {children}
     </Button2>
