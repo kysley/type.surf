@@ -1,18 +1,30 @@
-import type * as Types from './schemas';
+import * as Types from './schemas';
 
-export type CreateAccountMutationVariables = Types.Exact<{
-  email: Types.Scalars['String'];
-  username: Types.Scalars['String'];
-  password: Types.Scalars['String'];
+export type RegisterWithDiscordMutationVariables = Types.Exact<{
+  access: Types.Scalars['String'];
+  type: Types.Scalars['String'];
 }>;
 
-export type CreateAccountMutation = {__typename?: 'Mutation'} & {
-  createAccount: {__typename?: 'AuthPayload'} & Pick<
-    Types.AuthPayload,
-    'token'
-  > & {
-      account?: Types.Maybe<
-        {__typename?: 'Account'} & Pick<Types.Account, 'username' | 'id'>
-      >;
-    };
+export type RegisterWithDiscordMutation = {__typename?: 'Mutation'} & {
+  RegisterWithDiscord?: Types.Maybe<
+    {__typename?: 'AuthPayload'} & Pick<Types.AuthPayload, 'token'> & {
+        account?: Types.Maybe<
+          {__typename?: 'Account'} & Pick<
+            Types.Account,
+            'discriminator' | 'username' | 'id'
+          >
+        >;
+      }
+  >;
+};
+
+export type MeQueryVariables = Types.Exact<{[key: string]: never}>;
+
+export type MeQuery = {__typename?: 'Query'} & {
+  me?: Types.Maybe<
+    {__typename?: 'Account'} & Pick<
+      Types.Account,
+      'id' | 'exp' | 'level' | 'discriminator' | 'username'
+    >
+  >;
 };
