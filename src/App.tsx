@@ -3,11 +3,13 @@ import styled, {ThemeProvider} from 'styled-components';
 import {Routes, Route} from 'react-router-dom';
 
 import './App.css';
-import TypingAreaCompsition from './components/compositions/TypingArea/composition';
+import TypingAreaCompsition from './components/compositions/TypingArea';
 import {DevTools} from './components/DevTools';
 import {themeFactory} from './themes/default';
 import {Box} from './components/Box';
-import {LobbyComposition} from './components/compositions/Lobby/composition';
+import {LobbyComposition} from './components/compositions/Lobby';
+import {Registration} from './components/compositions/Registration';
+import {Auth} from './components/compositions/Auth';
 
 const AppWrapper = styled.div`
   width: 90vw;
@@ -43,6 +45,8 @@ function App() {
           <Routes>
             <Route path="/" element={<TypingAreaCompsition />} />
             <Route path="p/:id" element={<LobbyComposition />} />
+            <Route path="/register" element={<Registration />} />
+            <Route path="/auth" element={<Auth />} />
           </Routes>
         </AppContainer>
       </Box>

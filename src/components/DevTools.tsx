@@ -1,5 +1,6 @@
 import React from 'react';
 import {useRecoilValue} from 'recoil';
+import {useNavigate} from 'react-router-dom';
 
 import {contextualWindowState, focusedState} from '../state/state';
 import {Box} from './Box';
@@ -9,10 +10,11 @@ import {useSocketConnection} from '../hooks/useSocketHandler';
 
 export const DevTools = () => {
   const {socket} = useSocketConnection();
+  const navigate = useNavigate();
   const context = useRecoilValue(contextualWindowState);
   const focus = useRecoilValue(focusedState);
   const _join = (roomId: string) => {
-    socket.emit('client.join', {roomId});
+    navigate(`/p/${roomId}`);
   };
   return (
     <Box

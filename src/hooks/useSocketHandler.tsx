@@ -16,7 +16,6 @@ export const SocketProvider: React.FC = ({children}) => {
 
 export function useSocketConnection() {
   const socket = useContext(SocketContext);
-
   // useEffect(() => {
   //   const s = socket;
   //   if (socket.disconnected) {

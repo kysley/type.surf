@@ -39,15 +39,21 @@ const LobbyName = styled('h1')(color, {
 
 const LobbyComposition = () => {
   const {id} = useParams();
-  useRoomConnection(id);
+  const {roomState} = useRoomConnection(id);
+
+  console.log(roomState);
 
   return (
     <Box gridArea="main">
       <CompositionContainer>
         <Box gridArea="name">
-          <LobbyName color="text">Lobby Name that is longer ...</LobbyName>
+          <LobbyName color="text">{roomState?.name}</LobbyName>
         </Box>
-        <Box gridArea="core">Player List goes here</Box>
+        <Box gridArea="core">
+          {roomState?.players.map((player) => {
+            return <span>{player.username}</span>;
+          })}
+        </Box>
         <Box gridArea="rules">don't do that</Box>
         <Box gridArea="ready" gridColumn="1 / 4">
           <Button>I'm Ready</Button>
