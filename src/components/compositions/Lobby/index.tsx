@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {useRecoilState} from 'recoil';
 import {color} from 'styled-system';
 
-import useTyping from '../../../hooks/useTyping';
-import {CaptureFocus} from '../../../components/CaptureFocus';
 import {Box} from '../../../components/Box';
-import {contextualWindowState, focusedState} from '../../../state/state';
-import useKeypress from '../../../hooks/useKeyPress';
 import {Button} from '../../Button';
 import {useParams} from 'react-router-dom';
 import {useRoomConnection} from '../../../hooks/useRoomConnection';

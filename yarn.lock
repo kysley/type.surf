@@ -7093,6 +7093,11 @@ globby@11.0.1, globby@^11.0.1:
     merge2 "^1.3.0"
     slash "^3.0.0"
 
+goober@^2.0.15:
+  version "2.0.19"
+  resolved "https://registry.yarnpkg.com/goober/-/goober-2.0.19.tgz#9a17ca57f32f5009d013a85bbb44d67d2be6b596"
+  integrity sha512-ewW0g4H+CDIxneBEynuaiGiCIGhlKxo6APHMntnJBt/Qx5XMBLJXrgKdj6CDM/id0vSK9F2EtIPE++8bttCC9Q==
+
 got@^11.1.4:
   version "11.8.0"
   resolved "https://registry.yarnpkg.com/got/-/got-11.8.0.tgz#be0920c3586b07fd94add3b5b27cb28f49e6545f"
@@ -10713,6 +10718,13 @@ react-dom@^17.0.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     scheduler "^0.20.1"
+
+react-hot-toast@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-hot-toast/-/react-hot-toast-1.0.1.tgz#1352a526545f157bc83fbc2b19ac3ad1d92e780e"
+  integrity sha512-og5MNzjNHa7BTjdThj3cwGoyD8tLoxMN9c8/Sme6bBLCnlrF54QrNOJW5gJkETTsuAHVsUK5z8Q6vvkc+9OfCg==
+  dependencies:
+    goober "^2.0.15"
 
 react-is@^16.12.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"

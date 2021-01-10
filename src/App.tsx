@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, {ThemeProvider} from 'styled-components';
 import {Routes, Route} from 'react-router-dom';
+import {Toaster} from 'react-hot-toast';
 
 import './App.css';
 import TypingAreaCompsition from './components/compositions/TypingArea';
@@ -10,6 +11,8 @@ import {Box} from './components/Box';
 import {LobbyComposition} from './components/compositions/Lobby';
 import {Registration} from './components/compositions/Registration';
 import {Auth} from './components/compositions/Auth';
+import {useMe} from './hooks/api/useMe';
+import {Header} from './components/compositions/Header';
 
 const AppWrapper = styled.div`
   width: 90vw;
@@ -20,7 +23,7 @@ const AppWrapper = styled.div`
 const AppContainer = styled.main`
   display: grid;
   grid-template-areas: 'header' 'main' 'footer';
-  grid-template-rows: 90px 1fr 100px;
+  grid-template-rows: 30px 1fr 100px;
   justify-content: center;
   min-height: 100vh;
 `;
@@ -34,13 +37,13 @@ const theme = themeFactory({
   error2: '#7e2a33',
 });
 
-console.log(theme);
-
 function App() {
+  useMe();
   return (
     <ThemeProvider theme={theme}>
       <Box color="text" bg="background" width="100vw" margin="auto">
         <AppContainer>
+          <Header />
           <DevTools />
           <Routes>
             <Route path="/" element={<TypingAreaCompsition />} />
@@ -48,6 +51,7 @@ function App() {
             <Route path="/register" element={<Registration />} />
             <Route path="/auth" element={<Auth />} />
           </Routes>
+          <Toaster />
         </AppContainer>
       </Box>
     </ThemeProvider>
