@@ -7,19 +7,19 @@ hooks:
     - prettier --write
 generates:
   src/graphql/gen/test.ts:
-    documents: 'src/graphql/**/**.graphql'
+    documents: 'src/graphql/**/**.ts'
     plugins:
       - typescript-document-nodes
     config:
       namePrefix: 'gql'
   # Get schemas from server
   src/graphql/gen/schemas.ts:
-    documents: 'src/graphql/**/**.graphql'
+    documents: 'src/graphql/**/**.ts'
     plugins:
       - typescript
   # Create operations based on queries
   src/graphql/gen/operations.ts:
-    documents: 'src/graphql/**/**.graphql'
+    documents: 'src/graphql/**/**.ts'
     preset: import-types
     presetConfig:
       typesPath: ./schemas
