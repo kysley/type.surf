@@ -6,6 +6,7 @@ import {Box} from '../../../components/Box';
 import {Button} from '../../Button';
 import {useParams} from 'react-router-dom';
 import {useRoomConnection} from '../../../hooks/useRoomConnection';
+import TypingAreaComposition from '../TypingArea';
 
 const CompositionContainer = styled(Box)`
   display: grid;
@@ -53,6 +54,8 @@ const LobbyComposition = () => {
         <Box gridArea="ready" gridColumn="1 / 4">
           <Button>I'm Ready</Button>
         </Box>
+        {(roomState?.state === 'STARTING' ||
+          roomState?.state === 'STARTED') && <TypingAreaComposition />}
       </CompositionContainer>
     </Box>
   );

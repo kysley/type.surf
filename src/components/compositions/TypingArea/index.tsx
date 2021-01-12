@@ -28,25 +28,25 @@ const TypingAreaComposition = () => {
   const [focused, setFocusedState] = useRecoilState(focusedState);
   const [contextOpen, setContextState] = useRecoilState(contextualWindowState);
 
-  useKeypress(
-    'Tab',
-    () => {
-      console.log('contextual state true');
-      setContextState(true);
-      setFocusedState(false);
-    },
-    focused,
-  );
+  // useKeypress(
+  //   'Tab',
+  //   () => {
+  //     console.log('contextual state true');
+  //     setContextState(true);
+  //     setFocusedState(false);
+  //   },
+  //   focused,
+  // );
 
-  useKeypress(
-    'Escape',
-    () => {
-      console.log('close contextual state');
-      setContextState(false);
-      setFocusedState(true);
-    },
-    contextOpen,
-  );
+  // useKeypress(
+  //   'Escape',
+  //   () => {
+  //     console.log('close contextual state');
+  //     setContextState(false);
+  //     setFocusedState(true);
+  //   },
+  //   contextOpen,
+  // );
 
   useTyping({when: focused});
 
@@ -55,7 +55,7 @@ const TypingAreaComposition = () => {
       <CaptureFocus>
         <CompositionContainer>
           <WordsMix />
-          <ContextMix />
+          {/* <ContextMix /> */}
         </CompositionContainer>
       </CaptureFocus>
     </Box>

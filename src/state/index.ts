@@ -1,40 +1,13 @@
-import Recoil from 'recoil';
+import {atom, atomFamily, selector, selectorFamily} from 'recoil';
 import {v4 as uuid} from 'uuid';
+
 import {EOLState} from './state';
-
-const {atom, atomFamily, selector, selectorFamily} = Recoil;
-
-async function getWords() {
-  return new Promise<string>((resolve) =>
-    setTimeout(
-      resolve(
-        'ONe|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|seven',
-      ),
-      500,
-    ),
-  ).then((res) => res.split('|'));
-}
-
-export const wordSetOptionsFromState = selector({
-  key: 'wordSetOptions',
-  get: ({get}) => {
-    const slug = get(testDuration);
-    const mode = get(testMode);
-
-    if (mode === 'words') {
-    }
-  },
-});
 
 export const wordList = atom({
   key: 'wordList',
-  default: selector({
-    key: '1/default',
-    get: async () => {
-      const res = await getWords();
-      return res;
-    },
-  }),
+  default: 'ONe|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|sevenone|two|three|four|five|six|seven'.split(
+    '|',
+  ),
 });
 
 export const wordFromIndex = selectorFamily({

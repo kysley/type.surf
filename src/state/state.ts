@@ -1,6 +1,7 @@
-import {atom} from 'recoil';
+import {atom, selector} from 'recoil';
 import {v4 as uuid} from 'uuid';
 import produce from 'immer';
+import {testTime, wordIndex, wordState} from './';
 
 // import {wordList} from '.';
 
@@ -172,4 +173,29 @@ export const EOLState = atom({
 export const contextualWindowState = atom({
   key: 'contextualwindowstate',
   default: false,
+});
+
+export const statsForNerds = selector({
+  key: 'statsfornerds',
+  get: ({get}) => {
+    const position = get(wordIndex);
+    const time = get(testTime);
+
+    let wods = [];
+    let corr = 0;
+    let incorr = 0;
+    for (let i = 0; i < position + 1; i++) {
+      const wod = get(wordState(i));
+      wods.push(wod);
+      for (let k = 0; k < wod.length; k++) {
+        const lett = wod[k];
+        if (lett.match === 'HIT') corr += 1;
+        else if (lett.match === 'EXTRA' || lett.match === 'MISS') incorr += 1;
+      }
+    }
+    const wpm = ((corr + position) * (60 / time)) / 5;
+    return {
+      wpm: wpm || 999,
+    };
+  },
 });
