@@ -195,7 +195,7 @@ export const statsForNerds = selector({
     }
     const wpm = ((corr + position) * (60 / time)) / 5;
     return {
-      wpm: wpm || 999,
+      wpm: wpm || 0,
     };
   },
 });

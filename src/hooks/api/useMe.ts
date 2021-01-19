@@ -8,11 +8,8 @@ export function useMe() {
   const [result, reexec] = useQuery<MeQuery, MeQueryVariables>({
     query: ME,
   });
-  const {data, fetching, error} = result;
 
-  if (error) {
-    toast.error(error.message);
-  }
+  const {data, fetching, error} = result;
 
   console.log('me');
   return {

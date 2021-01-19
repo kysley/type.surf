@@ -15,7 +15,7 @@ const HeaderContainer = styled(Box)({
 export const Header = () => {
   const {user} = useMe();
   return (
-    <HeaderContainer>
+    <HeaderContainer gridArea="header">
       <Box gridArea="nav" flexDirection="row" display="flex">
         <Button>solo</Button>
         <Button>multiplayer</Button>

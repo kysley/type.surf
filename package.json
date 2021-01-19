@@ -8,6 +8,7 @@
     "codegen": "graphql-codegen --config codegen.yml"
   },
   "dependencies": {
+    "@reach/dialog": "^0.12.1",
     "@reach/listbox": "^0.12.1",
     "@reach/menu-button": "^0.12.1",
     "@styled-icons/feather": "^10.18.0",

@@ -8,21 +8,18 @@ import Word from '../../Word';
 import {Caret} from '../../../components/Caret';
 import {focusedState} from '../../../state/state';
 
-const BUMP_PX = 30;
-
 const WordsWrapper = styled.div`
   opacity: 1;
   height: 121px;
   overflow: hidden;
-  grid-area: typing;
   position: relative;
   display: flex;
+  width: 100%;
 `;
 
 const WordsContainer = styled(animated.div)`
   display: flex;
   flex-wrap: wrap;
-  width: 100%;
   align-content: flex-start;
   user-select: none;
   position: absolute;

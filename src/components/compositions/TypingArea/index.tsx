@@ -3,28 +3,19 @@ import styled from 'styled-components';
 import {useRecoilState} from 'recoil';
 
 import WordsMix from './WordsMix';
-import {ContextMix} from './ContextMix';
 import useTyping from '../../../hooks/useTyping';
 import {CaptureFocus} from '../../../components/CaptureFocus';
 import {Box} from '../../../components/Box';
 import {contextualWindowState, focusedState} from '../../../state/state';
-import useKeypress from '../../../hooks/useKeyPress';
 
-const CompositionContainer = styled(Box)`
-  display: grid;
-  grid-area: main;
-  grid-template-areas:
-    'typing typing'
-    'context context'
-    'results results';
-  grid-template-columns: 1fr 3fr;
-  grid-template-rows: auto;
-  width: 50vw;
-  position: relative;
-  gap: 1em;
+const Container = styled(Box)<{obfuscate: boolean}>`
+  grid-area: content;
+  width: 100%;
+  align-self: center;
+  filter: ${({obfuscate}) => (obfuscate ? 'blur(4px)' : 'none')};
 `;
 
-const TypingAreaComposition = () => {
+const TypingAreaComposition = ({obfuscate = false}) => {
   const [focused, setFocusedState] = useRecoilState(focusedState);
   const [contextOpen, setContextState] = useRecoilState(contextualWindowState);
 
@@ -51,14 +42,11 @@ const TypingAreaComposition = () => {
   useTyping({when: focused});
 
   return (
-    <Box gridArea="main">
+    <Container obfuscate={obfuscate}>
       <CaptureFocus>
-        <CompositionContainer>
-          <WordsMix />
-          {/* <ContextMix /> */}
-        </CompositionContainer>
+        <WordsMix />
       </CaptureFocus>
-    </Box>
+    </Container>
   );
 };
 
