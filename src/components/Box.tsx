@@ -5,7 +5,6 @@ import {
   color,
   flexbox,
   grid,
-  compose,
   typography,
   SpaceProps,
   LayoutProps,
@@ -18,7 +17,8 @@ type BoxProps = SpaceProps &
   LayoutProps &
   ColorProps &
   FlexboxProps &
-  GridProps;
+  GridProps &
+  SpaceProps;
 
 export const Box = styled.div<BoxProps>(
   {
@@ -32,4 +32,5 @@ export const Box = styled.div<BoxProps>(
   flexbox,
   typography,
   grid,
+  space,
 );
