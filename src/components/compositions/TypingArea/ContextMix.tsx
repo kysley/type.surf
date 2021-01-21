@@ -43,8 +43,6 @@ export const ContextMix = () => {
       bg="secondary"
       p={2}
     >
-      {/* <button onClick={brandNew}>reset</button> */}
-      {/* <div> */}
       <Button variant="primary" onClick={tester}>
         <Repeat size={24} title="Restart Test" />
       </Button>
@@ -61,8 +59,6 @@ export const ContextMix = () => {
         callback={(v) => console.log(v)}
         defaultValue="60"
       />
-      {/* <button onClick={() => _join('123')}>join</button> */}
-      {/* </div> */}
     </ContextContainer>
   );
 };

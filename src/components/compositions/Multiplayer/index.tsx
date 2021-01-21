@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
-import Dialog from '@reach/dialog';
 import {useRecoilCallback, useRecoilValue, useSetRecoilState} from 'recoil';
 
 import {useRoomConnection} from '../../../hooks/useRoomConnection';
 import {LobbyScene} from './scenes/Lobby';
 import {StartedScene} from './scenes/Started';
-import {Progress} from './GameProgress';
 import {wordIndex, wordList} from '../../../state';
 import {useSocketConnection} from '../../../hooks/useSocketHandler';
 import {statsForNerds} from '../../../state/state';
