@@ -4,6 +4,8 @@ type themeFactoryColors = {
   primary: string;
   secondary: string;
   background: string;
+  background2: string;
+  background3: string;
   text: string;
   error: string;
   // success: string;
@@ -14,11 +16,18 @@ type themeFactoryColors = {
 // todo add success
 
 export function themeFactory(colors: themeFactoryColors) {
+  const colorsObj = {
+    ...colors,
+    caret: colors.caret ?? colors.primary,
+    primary2: darken(colors.primary, 0.05),
+    background2: darken(colors.background, 0.05),
+    background3: darken(colors.background, 0.1),
+  };
   return {
-    colors: {
-      ...colors,
-      caret: colors.caret ?? colors.primary,
-      primary2: darken(colors.primary, 0.05),
+    colors: colorsObj,
+    shadows: {
+      default: `0px 5px 0px 0px ${colorsObj.background3}`,
+      active: `0px 3px 0px 0px ${colorsObj.background3}`,
     },
   };
 }
