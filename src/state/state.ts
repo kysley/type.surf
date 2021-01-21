@@ -1,9 +1,23 @@
-import {atom, selector} from 'recoil';
+import {atom, DefaultValue, selector} from 'recoil';
 import {v4 as uuid} from 'uuid';
 import produce from 'immer';
 import {testTime, wordIndex, wordState} from './';
 
-// import {wordList} from '.';
+//@ts-ignore
+const localStorageEffect = (key: string) => ({setSelf, onSet}) => {
+  const savedValue = localStorage.getItem(key);
+  if (savedValue != null) {
+    setSelf(JSON.parse(savedValue));
+  }
+  //@ts-ignore
+  onSet((newValue) => {
+    if (newValue instanceof DefaultValue) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    }
+  });
+};
 
 // // ====== Helpers ======
 
@@ -89,77 +103,6 @@ export function back(meta: testMeta): backReturn {
   return ret as backReturn;
 }
 
-// // ====== Atoms ======
-
-// export const wordSetState = atom({
-//   key: 'wordSetState',
-//   default: '',
-// });
-
-// export const wordIndex = atom({
-//   key: 'wordIndex',
-//   default: 0,
-// });
-
-// export const letterIndex = atom({
-//   key: 'letterIndex',
-//   default: 0,
-// });
-
-// export const wordState = atomFamily({
-//   key: 'wordState',
-//   default: selectorFamily({
-//     key: 'wordState/default',
-//     get: (index: number) => ({get}) => {
-//       return get(wordSet)
-//         [index].split('')
-//         .map((letter) => ({
-//           letter,
-//           input: '',
-//           match: 'WAIT',
-//           id: uuid(),
-//         }));
-//     },
-//   }),
-// });
-
-// export const userInputHistory = atom({
-//   key: 'userhistory',
-//   default: [],
-// });
-
-// // ====== Selectors ======
-// export const wordSet = selector({
-//   key: 'wordSet',
-//   get: ({get}) => get(wordSetState).split('|'),
-// });
-
-// export const wordWhereIndex = selectorFamily({
-//   key: 'wordwhereindex',
-//   get: (index: number) => ({get}) => {
-//     return get(wordSet)[index];
-//   },
-// });
-
-// export const wordStateWhereIndex = selectorFamily({
-//   key: 'wordStateWhereIndex',
-//   get: (index: number) => ({get}) => {
-//     return get(wordState(index));
-//   },
-// });
-
-// export const userInputHistoryWhereIndex = selectorFamily({
-//   key: 'userInputHistoryWhereIndex',
-//   get: (index: number) => ({get}) => {
-//     return get(userInputHistory)[index];
-//   },
-// });
-
-// // export const userInputHistoryBoolean;
-
-// // export const isWordCorrectWhereIndex = selectorFamily({
-
-// // })
 export const focusedState = atom({
   key: 'focusedState',
   default: false,
@@ -198,4 +141,16 @@ export const statsForNerds = selector({
       wpm: wpm || 0,
     };
   },
+});
+
+export const OrbitState = atom({
+  key: 'orbitstate',
+  default: localStorage.getItem('_surf.orbit') || 30,
+  effects_UNSTABLE: [localStorageEffect('_surf.orbit')],
+});
+
+export const ModeState = atom({
+  key: 'modestate',
+  default: localStorage.getItem('_surf.mode') || 'time',
+  effects_UNSTABLE: [localStorageEffect('_surf.mode')],
 });
