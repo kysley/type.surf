@@ -26,7 +26,14 @@ module.exports = {
 
   parser: '@babel/eslint-parser',
 
-  plugins: ['import', 'jsx-a11y', 'react', 'react-hooks', 'prettier', '@typescript-eslint'],
+  plugins: [
+    'import',
+    'jsx-a11y',
+    'react',
+    'react-hooks',
+    'prettier',
+    '@typescript-eslint',
+  ],
 
   env: {
     browser: true,
@@ -117,7 +124,7 @@ module.exports = {
   rules: {
     // http://eslint.org/docs/rules/
     'array-callback-return': 'warn',
-    'default-case': ['warn', { commentPattern: '^no default$' }],
+    'default-case': ['warn', {commentPattern: '^no default$'}],
     'dot-location': ['warn', 'property'],
     eqeqeq: ['warn', 'smart'],
     'new-parens': 'warn',
@@ -144,7 +151,7 @@ module.exports = {
     'no-invalid-regexp': 'warn',
     'no-iterator': 'warn',
     'no-label-var': 'warn',
-    'no-labels': ['warn', { allowLoop: true, allowSwitch: false }],
+    'no-labels': ['warn', {allowLoop: true, allowSwitch: false}],
     'no-lone-blocks': 'warn',
     'no-loop-func': 'warn',
     'no-mixed-operators': [
@@ -171,7 +178,7 @@ module.exports = {
     'no-octal-escape': 'warn',
     // TODO: Remove this option in the next major release of CRA.
     // https://eslint.org/docs/user-guide/migrating-to-6.0.0#-the-no-redeclare-rule-is-now-more-strict-by-default
-    'no-redeclare': ['warn', { builtinGlobals: false }],
+    'no-redeclare': ['warn', {builtinGlobals: false}],
     'no-regex-spaces': 'warn',
     'no-restricted-syntax': ['warn', 'WithStatement'],
     'no-script-url': 'warn',
@@ -224,11 +231,12 @@ module.exports = {
     ],
     'no-with': 'warn',
     'no-whitespace-before-property': 'warn',
-    "react-hooks/exhaustive-deps": [
-      "warn", {
-        "additionalHooks": "useRecoilCallback"
-      }
-    ]
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        additionalHooks: 'useRecoilCallback',
+      },
+    ],
     'require-yield': 'warn',
     'rest-spread-spacing': ['warn', 'never'],
     strict: ['warn', 'never'],
@@ -259,7 +267,7 @@ module.exports = {
     'import/no-webpack-loader-syntax': 'error',
 
     // https://github.com/yannickcr/eslint-plugin-react/tree/master/docs/rules
-    'react/forbid-foreign-prop-types': ['warn', { allowInPropTypes: true }],
+    'react/forbid-foreign-prop-types': ['warn', {allowInPropTypes: true}],
     'react/jsx-no-comment-textnodes': 'warn',
     'react/jsx-no-duplicate-props': 'warn',
     'react/jsx-no-target-blank': 'warn',
@@ -297,7 +305,7 @@ module.exports = {
     'jsx-a11y/aria-activedescendant-has-tabindex': 'warn',
     'jsx-a11y/aria-props': 'warn',
     'jsx-a11y/aria-proptypes': 'warn',
-    'jsx-a11y/aria-role': ['warn', { ignoreNonDOM: true }],
+    'jsx-a11y/aria-role': ['warn', {ignoreNonDOM: true}],
     'jsx-a11y/aria-unsupported-elements': 'warn',
     'jsx-a11y/heading-has-content': 'warn',
     'jsx-a11y/iframe-has-title': 'warn',
