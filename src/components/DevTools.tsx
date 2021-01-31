@@ -2,7 +2,7 @@ import React from 'react';
 import {useRecoilValue} from 'recoil';
 import {useNavigate} from 'react-router-dom';
 
-import {contextualWindowState, focusedState} from '../state/state';
+import {focusedState} from '../state';
 import {Box} from './Box';
 import {useSocketConnection} from '../hooks/useSocketHandler';
 
@@ -11,7 +11,6 @@ import {useSocketConnection} from '../hooks/useSocketHandler';
 export const DevTools = () => {
   const {socket} = useSocketConnection();
   const navigate = useNavigate();
-  const context = useRecoilValue(contextualWindowState);
   const focus = useRecoilValue(focusedState);
   const _join = (roomId: string) => {
     navigate(`/p/${roomId}`);
@@ -25,7 +24,6 @@ export const DevTools = () => {
     >
       <button onClick={() => _join('123')}>Join Test Room</button>
       <span>focused: {JSON.stringify(focus)}</span>
-      <span>context: {JSON.stringify(context)}</span>
       <span>socket: {socket.connected ? 'conn' : 'x'}</span>
     </Box>
   );

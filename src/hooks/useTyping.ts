@@ -8,23 +8,38 @@ import {
   testHistory,
   testMeta,
   wordState,
+  getKey,
+  newWordState,
+  back,
+  forward,
+  HasStartedState,
+  EOWState,
+  focusedState,
 } from '../state';
-import {getKey, newWordState, back, forward} from '../state/state';
 
 interface useTypingProps {
   ref?: React.RefObject<any>;
   when?: boolean;
 }
 
-const useTyping = ({ref, when = true}: useTypingProps) => {
+function useTyping({ref, when = true}: useTypingProps) {
   const handleRecoil = useRecoilCallback(
     ({set, snapshot}) => async (e: KeyboardEvent) => {
       const meta = await snapshot.getPromise(testMeta);
+      const focused = await snapshot.getPromise(focusedState);
       const cat = getInputCategory(e);
       const key = getKey(e);
 
+      if (meta.testState === 'DONE' || !focused) return;
+
       switch (cat) {
         case 'AZ09': {
+          if (!meta.hasStarted) {
+            set(HasStartedState, true);
+          }
+          // if (meta.testState === 'WAITING') {
+          //   set(testTypingState, 'STARTED');
+          // }
           if (!meta.eol) {
             const newWs = newWordState(key, meta);
             set(wordState(meta.wordIndex), newWs);
@@ -43,6 +58,9 @@ const useTyping = ({ref, when = true}: useTypingProps) => {
           set(testHistory, res.history);
           set(wordIndex, res.wordIndex);
           set(letterIndex, res.letterIndex);
+          if (res.EOW) {
+            set(EOWState, res.EOW);
+          }
           break;
         }
         default:
@@ -63,6 +81,6 @@ const useTyping = ({ref, when = true}: useTypingProps) => {
     };
   }, [handleRecoil, when]);
   return null;
-};
+}
 
 export default useTyping;

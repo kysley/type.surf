@@ -12,6 +12,14 @@ export const GqlRegisterWithDiscord = gql`
     }
   }
 `;
+export const Gqlwordset = gql`
+  mutation wordset($length: Int!, $seed: String) {
+    wordset(length: $length, seed: $seed) {
+      wordset
+      seed
+    }
+  }
+`;
 export const Gqlme = gql`
   query me {
     me {

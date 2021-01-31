@@ -1,16 +1,16 @@
-import React, {useRef, useEffect, useState} from 'react';
+import React, {useRef, useEffect, useState, useCallback} from 'react';
 import styled from 'styled-components';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {useSpring, animated} from 'react-spring';
+import {Loader} from '@styled-icons/feather';
 
-import {wordList, wordIndex} from '../../../state';
+import {wordList, wordIndex, focusedState} from '../../../state';
 import Word from '../../Word';
 import {Caret} from '../../../components/Caret';
-import {focusedState} from '../../../state/state';
 
 const WordsWrapper = styled.div`
   opacity: 1;
-  height: 121px;
+  height: 150px;
   overflow: hidden;
   position: relative;
   display: flex;
@@ -24,14 +24,13 @@ const WordsContainer = styled(animated.div)`
   user-select: none;
   position: absolute;
   outline: none;
-  /* padding-top: 22px; */
 `;
 
 const WordsMix = () => {
   const [line, setLine] = useState(0);
   const words = useRecoilValue(wordList);
   const setFocused = useSetRecoilState(focusedState);
-  const breakRef = useRef<number[]>();
+  const [breaks, setBreaks] = useState<number[]>();
   const containerRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const wI = useRecoilValue(wordIndex);
@@ -39,10 +38,10 @@ const WordsMix = () => {
 
   // I read somewhere that getBoundingClientRect().value
   // reads from a cached copy, so this wouldnt cause reflow?
-  const getVerticalDistanceBetweenWords = () => {
-    if (breakRef.current && containerRef.current) {
-      const id1 = breakRef.current[0];
-      const id2 = breakRef.current[1];
+  const getVerticalDistanceBetweenWords = useCallback(() => {
+    if (breaks && containerRef.current) {
+      const id1 = breaks[0];
+      const id2 = breaks[1];
       const xOne = containerRef.current?.children[id1].getBoundingClientRect()
         .y;
       const xTwo = containerRef.current?.children[id2].getBoundingClientRect()
@@ -51,7 +50,7 @@ const WordsMix = () => {
       return Math.abs(xOne - xTwo);
     }
     return 0;
-  };
+  }, [breaks]);
 
   useEffect(() => {
     // reset the line tracker and top styling
@@ -61,18 +60,19 @@ const WordsMix = () => {
       setLine(0);
     }
     // THE END OF THE LINE?
-    const bumpOnIndex = breakRef.current?.indexOf(wI) ?? -1;
+    const bumpOnIndex = breaks?.indexOf(wI) ?? -1;
     if (bumpOnIndex !== -1) {
       setLine((prev) => prev + 1);
     }
-  }, [set, wI]);
+  }, [set, wI, breaks]);
 
   // only scroll if we are past the first line.
   // start on first line, caret moves to second line.
   // end of second line, we want to move the words up
   useEffect(() => {
+    console.log(line);
     if (line > 1) set({top: -((line - 1) * getVerticalDistanceBetweenWords())});
-  }, [line, set]);
+  }, [line, set, getVerticalDistanceBetweenWords]);
 
   useEffect(() => {
     const indicesToScrollAt: number[] = [];
@@ -87,28 +87,34 @@ const WordsMix = () => {
           if (idx !== 0) indicesToScrollAt.push(idx);
         }
       });
+      setBreaks(indicesToScrollAt);
     }
-    breakRef.current = indicesToScrollAt;
-  }, [wI]);
+  }, [words]);
 
   return (
-    <WordsWrapper ref={viewportRef} tabIndex={1}>
-      <WordsContainer
-        tabIndex={0}
-        onBlur={() => setFocused(false)}
-        onFocus={() => setFocused(true)}
-        ref={containerRef}
-        style={top}
-      >
-        {words.map((word, i) => (
-          <Word key={i} i={i} />
-        ))}
-      </WordsContainer>
-      <Caret
-        container={containerRef}
-        breaks={breakRef.current}
-        hasScrolled={line > 0}
-      />
+    <WordsWrapper ref={viewportRef}>
+      {words.length ? (
+        <>
+          <WordsContainer
+            tabIndex={0}
+            onBlur={() => setFocused(false)}
+            onFocus={() => setFocused(true)}
+            ref={containerRef}
+            style={top}
+          >
+            {words.map((word, i) => (
+              <Word key={i} i={i} />
+            ))}
+          </WordsContainer>
+          <Caret
+            container={containerRef}
+            breaks={breaks}
+            hasScrolled={line > 0}
+          />
+        </>
+      ) : (
+        <Loader />
+      )}
     </WordsWrapper>
   );
 };

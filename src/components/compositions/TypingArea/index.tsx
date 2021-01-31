@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import {useRecoilState} from 'recoil';
 
@@ -6,7 +6,7 @@ import WordsMix from './WordsMix';
 import useTyping from '../../../hooks/useTyping';
 import {CaptureFocus} from '../../../components/CaptureFocus';
 import {Box} from '../../../components/Box';
-import {contextualWindowState, focusedState} from '../../../state/state';
+import {focusedState} from '../../../state';
 
 const Container = styled(Box)<{obfuscate: boolean}>`
   grid-area: content;
@@ -17,7 +17,6 @@ const Container = styled(Box)<{obfuscate: boolean}>`
 
 const TypingAreaComposition = ({obfuscate = false}) => {
   const [focused, setFocusedState] = useRecoilState(focusedState);
-  const [contextOpen, setContextState] = useRecoilState(contextualWindowState);
 
   // useKeypress(
   //   'Tab',

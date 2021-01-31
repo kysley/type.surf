@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import css from '@styled-system/css';
 
 import '@reach/listbox/styles.css';
-import {CheckCircle} from '@styled-icons/feather';
+import {Check} from '@styled-icons/feather';
 
 const StyledListboxPopover = styled(ListboxPopover)(
   css({
@@ -27,8 +27,8 @@ const StyledListboxButton = styled(ListboxButton)(
   css({
     outline: 'none !important',
     border: 'none',
-    fontSize: '2rem',
-    padding: '0.5rem 1rem',
+    height: '40px',
+    padding: '0 1.35rem',
     bg: 'background2',
     cursor: 'pointer',
     color: 'text',
@@ -38,7 +38,7 @@ const StyledListboxButton = styled(ListboxButton)(
     ':hover': {
       boxShadow: 'active',
     },
-    '&[aria-expanded="true"]': {
+    ':focus': {
       boxShadow: 'active',
       bg: 'background3',
     },
@@ -113,7 +113,7 @@ export function Selection({
             <StyledListboxOption value={opt.value} key={opt.key || opt.value}>
               {opt.label || opt.value}
               {value === opt.value && (
-                <CheckCircle
+                <Check
                   height="15px"
                   strokeWidth="3px"
                   style={{paddingLeft: '0.5em'}}

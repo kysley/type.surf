@@ -29,7 +29,7 @@ export type Account = {
   lastSeen: Scalars['DateTime'];
   level: Scalars['Int'];
   exp: Scalars['Int'];
-  discriminator: Scalars['Int'];
+  discriminator: Scalars['String'];
   role: Role;
   updatedAt: Scalars['DateTime'];
   username: Scalars['String'];
@@ -70,6 +70,7 @@ export enum Role {
 export type Mutation = {
   __typename?: 'Mutation';
   RegisterWithDiscord?: Maybe<AuthPayload>;
+  wordset?: Maybe<WordsetPayload>;
 };
 
 export type MutationRegisterWithDiscordArgs = {
@@ -77,10 +78,22 @@ export type MutationRegisterWithDiscordArgs = {
   type: Scalars['String'];
 };
 
+export type MutationWordsetArgs = {
+  length: Scalars['Int'];
+  seed?: Maybe<Scalars['String']>;
+  punctuate?: Maybe<Scalars['Boolean']>;
+};
+
 export type AuthPayload = {
   __typename?: 'AuthPayload';
   account?: Maybe<Account>;
   token?: Maybe<Scalars['String']>;
+};
+
+export type WordsetPayload = {
+  __typename?: 'WordsetPayload';
+  wordset?: Maybe<Scalars['String']>;
+  seed?: Maybe<Scalars['String']>;
 };
 
 export type ResultInput = {

@@ -26,7 +26,7 @@ const LobbyName = styled('h1')(color, {
   margin: 0,
 });
 
-export const LobbyScene = ({roomState}) => {
+export const LobbyScene = ({roomState}: any) => {
   const {socket} = useSocketConnection();
   return (
     <CompositionContainer>
@@ -34,7 +34,7 @@ export const LobbyScene = ({roomState}) => {
         <LobbyName color="text">{roomState?.name}</LobbyName>
       </Box>
       <Box gridArea="core" display="flex" flexDirection="column">
-        {roomState?.players.map((player) => {
+        {roomState?.players.map((player: any) => {
           return <span key={player.userId}>{player.username}</span>;
         })}
       </Box>

@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useEffect, useRef} from 'react';
+import React, {createContext, useContext, useRef} from 'react';
 
 import {socket} from '../utils/socket';
 

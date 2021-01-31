@@ -28,4 +28,5 @@ type testMeta = {
   testState: TestState;
   history: boolean[];
   eol: boolean;
+  hasStarted: boolean;
 };

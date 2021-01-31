@@ -9,11 +9,9 @@ export const Stack = styled(Box)<{direction: 'row' | 'column'}>(
     minWidth: 0,
     display: 'flex',
     flexDirection: direction,
-    '* *': {
-      marginTop: direction === 'column' ? '1rem' : undefined,
-      marginRight: direction === 'row' ? '1rem' : undefined,
-    },
-    '* + *': {
+    position: 'relative',
+
+    '> *': {
       marginTop: direction === 'column' ? '1rem' : undefined,
       marginRight: direction === 'row' ? '1rem' : undefined,
     },

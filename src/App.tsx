@@ -30,6 +30,7 @@ const AppContainer = styled.main`
   gap: 3em;
 `;
 
+//@ts-ignore
 const theme = themeFactory({
   primary: '#e2b714',
   secondary: '#646669',

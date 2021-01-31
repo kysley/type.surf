@@ -25,6 +25,7 @@ export const Box = styled.div<BoxProps>(
     boxSizing: 'border-box',
     margin: 0,
     minWidth: 0,
+    position: 'relative',
   },
   space,
   layout,

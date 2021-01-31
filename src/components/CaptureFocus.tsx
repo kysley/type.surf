@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useSetRecoilState} from 'recoil';
 
-import {focusedState} from '../state/state';
+import {focusedState} from '../state';
 import {Box} from './Box';
 
 export const CaptureFocus: React.FC = ({children}) => {
@@ -13,8 +13,8 @@ export const CaptureFocus: React.FC = ({children}) => {
      * Alert if clicked on outside of element
      */
     function handleClickOutside(event: any) {
-      event.preventDefault();
-      event.stopPropagation();
+      // event.preventDefault();
+      // event.stopPropagation();
       if (captureRef.current && !captureRef.current.contains(event.target)) {
         console.log('focus lost');
         setFocused(false);

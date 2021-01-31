@@ -6,3 +6,5 @@ export const socket = io(socketUrl, {
   withCredentials: true,
   // transports: ['websocket'],
 });
+
+socket.connect();

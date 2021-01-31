@@ -2,11 +2,11 @@ import React, {useEffect, useMemo} from 'react';
 import {useSpring, animated} from 'react-spring';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {color} from 'styled-system';
+import styled from 'styled-components';
 
-import {EOLState} from '../state/state';
+import {EOLState} from '../state';
 import {wordIndex, letterIndex} from '../state';
 import {Box} from './Box';
-import styled from 'styled-components';
 
 const CaretBody = styled(animated.div)`
   ${color}
@@ -39,18 +39,17 @@ export const Caret = ({
   const horizontalSpaceBetweenWords = useMemo(
     () =>
       Math.abs(
-        (container?.current?.children[breaks[0]].getBoundingClientRect()
+        (container?.current?.children[breaks[0]]?.getBoundingClientRect()
           .right || 30) -
-          (container?.current?.children[breaks[0] + 1].getBoundingClientRect()
+          (container?.current?.children[breaks[0] + 1]?.getBoundingClientRect()
             .left || 20),
       ),
     [breaks, container],
   );
-
   // reset the caret position if wordIndex goes back to 0
   // this will probably break once we allow backspacing across words
   useEffect(() => {
-    if (wordIdx === 0) setCaretPos({marginLeft: 0, top: 5});
+    if (wordIdx === 0) setCaretPos({marginLeft: 0, top: 12});
   }, [setCaretPos, wordIdx]);
 
   useEffect(() => {
@@ -84,7 +83,7 @@ export const Caret = ({
           const posLeft = letters[letterIdx].getBoundingClientRect().left;
           newLeft = posLeft - parentDom.x;
         }
-        setCaretPos({marginLeft: newLeft});
+        setCaretPos({marginLeft: newLeft - 3});
       }
     }
   }, [
@@ -97,18 +96,25 @@ export const Caret = ({
   ]);
 
   return (
-    <Xx
-      bg="caret"
+    <div
       style={{
-        ...caretPos,
-        // background: 'blue',
-        // opacity: 0.3,
-        width: '4px',
-        height: '25px',
-        position: hasScrolled ? undefined : 'absolute',
-        display: hasScrolled ? 'flex' : undefined,
-        alignSelf: hasScrolled ? 'center' : undefined,
+        height: '150px',
+        width: '100%',
+        display: 'flex',
+        position: 'absolute',
       }}
-    />
+    >
+      <Xx
+        bg="caret"
+        style={{
+          ...caretPos,
+          width: '4px',
+          height: '25px',
+          position: hasScrolled ? undefined : 'absolute',
+          display: hasScrolled ? 'flex' : undefined,
+          alignSelf: hasScrolled ? 'center' : undefined,
+        }}
+      />
+    </div>
   );
 };

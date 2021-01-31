@@ -14,6 +14,12 @@ module.exports = {
     '@snowpack/plugin-babel',
     '@snowpack/plugin-webpack',
   ],
+  routes: [{match: 'routes', src: '.*', dest: '/index.html'}],
+  // optimize: {
+  //   bundle: true,
+  //   minify: true,
+  //   target: 'es2018',
+  // },
   // installOptions: {},
   // devOptions: {},
   // buildOptions: {},

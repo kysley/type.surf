@@ -4,7 +4,7 @@ import {Box} from '../../../Box';
 import TypingAreaComposition from '../../TypingArea';
 import {Progress} from '../GameProgress';
 
-export const StartedScene = ({roomState}) => (
+export const StartedScene = ({roomState}: any) => (
   <>
     <Box
       gridArea="content"

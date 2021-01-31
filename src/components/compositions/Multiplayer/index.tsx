@@ -6,9 +6,8 @@ import {useRecoilCallback, useRecoilValue, useSetRecoilState} from 'recoil';
 import {useRoomConnection} from '../../../hooks/useRoomConnection';
 import {LobbyScene} from './scenes/Lobby';
 import {StartedScene} from './scenes/Started';
-import {wordIndex, wordList} from '../../../state';
+import {wordIndex, wordList, statsForNerds} from '../../../state';
 import {useSocketConnection} from '../../../hooks/useSocketHandler';
-import {statsForNerds} from '../../../state/state';
 
 const Container = styled('div')({
   display: 'grid',
@@ -40,6 +39,7 @@ function useStateSync() {
       socket.emit('client.stats', {stats: {...stats}});
       return stats;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -52,6 +52,7 @@ function useStateSync() {
       console.log(roomData);
       setRoomState((prev) => ({...prev, ...roomData}));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {
@@ -91,6 +92,7 @@ const LobbyCompositionUNSAFE = () => {
       ' ',
     ),
     state: 'STARTING',
+    //@ts-ignore
     countdown: '10',
     players: [
       {

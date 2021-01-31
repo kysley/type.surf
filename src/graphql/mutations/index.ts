@@ -29,3 +29,12 @@ export const REGISTER_WITH_DISCORD = gql`
     }
   }
 `;
+
+export const WORDSET = gql`
+  mutation wordset($length: Int!, $seed: String) {
+    wordset(length: $length, seed: $seed) {
+      wordset
+      seed
+    }
+  }
+`;

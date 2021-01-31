@@ -1,4 +1,4 @@
-import * as Types from './schemas';
+import type * as Types from './schemas';
 
 export type RegisterWithDiscordMutationVariables = Types.Exact<{
   access: Types.Scalars['String'];
@@ -15,6 +15,20 @@ export type RegisterWithDiscordMutation = {__typename?: 'Mutation'} & {
           >
         >;
       }
+  >;
+};
+
+export type WordsetMutationVariables = Types.Exact<{
+  length: Types.Scalars['Int'];
+  seed?: Types.Maybe<Types.Scalars['String']>;
+}>;
+
+export type WordsetMutation = {__typename?: 'Mutation'} & {
+  wordset?: Types.Maybe<
+    {__typename?: 'WordsetPayload'} & Pick<
+      Types.WordsetPayload,
+      'wordset' | 'seed'
+    >
   >;
 };
 

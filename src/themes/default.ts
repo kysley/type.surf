@@ -26,8 +26,8 @@ export function themeFactory(colors: themeFactoryColors) {
   return {
     colors: colorsObj,
     shadows: {
-      default: `0px 5px 0px 0px ${colorsObj.background3}`,
-      active: `0px 3px 0px 0px ${colorsObj.background3}`,
+      default: `inset 0px -3px 0px 0px ${colorsObj.background3}`,
+      active: `inset 0px -5px 0px 0px ${colorsObj.background3}`,
     },
   };
 }

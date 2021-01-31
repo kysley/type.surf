@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {animated} from 'react-spring';
 import {color} from 'styled-system';
-import {Box} from '../../Box';
 
-const colors = ['#FF008C', '#D309E1', '#9C1AFF', '#7700FF'];
+import {Box} from '../../Box';
 
 const ProgressContainer = styled('div')({
   display: 'flex',
@@ -61,6 +60,7 @@ export const Progress = ({players}: {players: any[]}) => {
     <ProgressContainer>
       <List>
         {players.map((player, idx) => (
+          //@ts-ignore
           <ListItem bg="secondary" key={player.userId}>
             <Box
               display="flex"
