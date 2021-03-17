@@ -2,7 +2,7 @@ import React, {useEffect, useMemo} from 'react';
 import {useSpring, animated} from 'react-spring';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 // import styled from 'styled-components';
-import css from '@styled-system/css';
+// import css from '@styled-system/css';
 
 import {EOLState} from '../state';
 import {wordIndex, letterIndex} from '../state';
@@ -28,7 +28,6 @@ export const Caret = ({
     config: {duration: 95, friction: 5},
   }));
 
-  // We can't exactly guarantee that any 2 words will be on the same line
   const horizontalSpaceBetweenWords = useMemo(
     () =>
       Math.abs(
@@ -39,10 +38,11 @@ export const Caret = ({
       ),
     [breaks, container],
   );
+
   // reset the caret position if wordIndex goes back to 0
   // this will probably break once we allow backspacing across words
   useEffect(() => {
-    if (wordIdx === 0) setCaretPos({marginLeft: 0, top: 12});
+    if (wordIdx === 0) setCaretPos({marginLeft: 0, top: 8});
   }, [setCaretPos, wordIdx]);
 
   useEffect(() => {
@@ -91,7 +91,7 @@ export const Caret = ({
   return (
     <div
       style={{
-        height: '150px',
+        height: '130px',
         width: '100%',
         display: 'flex',
         position: 'absolute',

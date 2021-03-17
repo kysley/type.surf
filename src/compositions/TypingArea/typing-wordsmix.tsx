@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState, useCallback} from 'react';
 import styled from 'styled-components';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {useSpring, animated} from 'react-spring';
-import {ArrowDownCircle, Loader} from '@styled-icons/feather';
+import {ArrowDownCircle} from '@styled-icons/feather';
 
 import {wordList, wordIndex, focusedState} from '../../state';
 import Word from '../../components/Word';
@@ -10,7 +10,7 @@ import {Caret} from '../../components/Caret';
 
 const WordsWrapper = styled.div`
   opacity: 1;
-  height: 150px;
+  height: 130px;
   overflow: hidden;
   position: relative;
   display: flex;

@@ -16,10 +16,8 @@ export const CaptureFocus: React.FC = ({children}) => {
       // event.preventDefault();
       // event.stopPropagation();
       if (captureRef.current && !captureRef.current.contains(event.target)) {
-        console.log('focus lost');
         setFocused(false);
       } else {
-        console.log('focused gained');
         setFocused(true);
       }
     }

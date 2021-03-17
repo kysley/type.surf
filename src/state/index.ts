@@ -118,7 +118,7 @@ function compareWord(compare: string, to: string) {
   return compare === to;
 }
 
-export function getKey(e: KeyboardEvent) {
+export function getKey(e: React.KeyboardEvent) {
   return e.key;
 }
 

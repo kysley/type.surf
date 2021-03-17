@@ -1,7 +1,6 @@
-import React, {useEffect} from 'react';
+import type React from 'react';
 import {useRecoilCallback} from 'recoil';
 
-import {getInputCategory} from '../utils/getInputCategory';
 import {
   wordIndex,
   letterIndex,
@@ -17,39 +16,19 @@ import {
   focusedState,
 } from '../state';
 
-interface useTypingProps {
-  ref?: React.RefObject<any>;
-  when?: boolean;
-}
-
-function useTyping({ref, when = true}: useTypingProps) {
-  const handleRecoil = useRecoilCallback(
-    ({set, snapshot}) => async (e: KeyboardEvent) => {
+function useTyping() {
+  const inputHandler = useRecoilCallback(
+    ({set, snapshot}) => async (
+      e: React.KeyboardEvent<HTMLTextAreaElement>,
+    ) => {
       const meta = await snapshot.getPromise(testMeta);
       const focused = await snapshot.getPromise(focusedState);
-      const cat = getInputCategory(e);
       const key = getKey(e);
 
       if (meta.testState === 'DONE' || !focused) return;
+      if (e.location === 1 || e.location === 2) return;
 
-      switch (cat) {
-        case 'AZ09': {
-          if (!meta.hasStarted) {
-            set(HasStartedState, true);
-          }
-          if (!meta.eol) {
-            const newWs = newWordState(key, meta);
-            set(wordState(meta.wordIndex), newWs);
-            set(letterIndex, (prev) => prev + 1);
-          }
-          break;
-        }
-        case 'Backspace': {
-          const ret = back(meta);
-          set(letterIndex, ret.letterIndex);
-          set(wordState(meta.wordIndex), ret.wordState);
-          break;
-        }
+      switch (e.code) {
         case 'Space': {
           const res = forward(meta);
           console.log(res.wordIndex);
@@ -61,24 +40,29 @@ function useTyping({ref, when = true}: useTypingProps) {
           }
           break;
         }
-        default:
-          console.warn('insupposed input category', e.key);
+        case 'Backspace': {
+          const ret = back(meta);
+          set(letterIndex, ret.letterIndex);
+          set(wordState(meta.wordIndex), ret.wordState);
           break;
+        }
+        default: {
+          if (!meta.hasStarted) {
+            set(HasStartedState, true);
+          }
+          if (!meta.eol) {
+            const newWs = newWordState(key, meta);
+            set(wordState(meta.wordIndex), newWs);
+            set(letterIndex, (prev) => prev + 1);
+          }
+          break;
+        }
       }
     },
     [],
   );
 
-  useEffect(() => {
-    if (when) {
-      document.addEventListener('keydown', handleRecoil);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleRecoil);
-    };
-  }, [handleRecoil, when]);
-  return null;
+  return {inputHandler};
 }
 
 export default useTyping;
