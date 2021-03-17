@@ -36,7 +36,7 @@ function useStateSync() {
   const getStats = useRecoilCallback(
     ({snapshot}) => async () => {
       const stats = await snapshot.getPromise(statsForNerds);
-      socket.emit('client.stats', {stats: {...stats}});
+      socket.emit('client.stats', {stats});
       return stats;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

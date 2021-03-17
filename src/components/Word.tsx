@@ -1,8 +1,8 @@
-import React, {memo} from 'react';
+import React from 'react';
 import Recoil from 'recoil';
 // import styled from 'styled-components';
 
-import {historyWhereIndex, wordState} from '../state';
+import {wordState} from '../state';
 import {styled} from '../styled';
 import Letter from './Letter';
 
