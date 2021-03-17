@@ -2,11 +2,11 @@ import React, {useRef, useEffect, useState, useCallback} from 'react';
 import styled from 'styled-components';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {useSpring, animated} from 'react-spring';
-import {Loader} from '@styled-icons/feather';
+import {ArrowDownCircle, Loader} from '@styled-icons/feather';
 
-import {wordList, wordIndex, focusedState} from '../../../state';
-import Word from '../../Word';
-import {Caret} from '../../../components/Caret';
+import {wordList, wordIndex, focusedState} from '../../state';
+import Word from '../../components/Word';
+import {Caret} from '../../components/Caret';
 
 const WordsWrapper = styled.div`
   opacity: 1;
@@ -30,7 +30,7 @@ const WordsMix = () => {
   const [line, setLine] = useState(0);
   const words = useRecoilValue(wordList);
   const setFocused = useSetRecoilState(focusedState);
-  const [breaks, setBreaks] = useState<number[]>();
+  const [breaks, setBreaks] = useState<number[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
   const wI = useRecoilValue(wordIndex);
@@ -39,7 +39,7 @@ const WordsMix = () => {
   // I read somewhere that getBoundingClientRect().value
   // reads from a cached copy, so this wouldnt cause reflow?
   const getVerticalDistanceBetweenWords = useCallback(() => {
-    if (breaks && containerRef.current) {
+    if (breaks.length && containerRef.current) {
       const id1 = breaks[0];
       const id2 = breaks[1];
       const xOne = containerRef.current?.children[id1].getBoundingClientRect()
@@ -87,7 +87,9 @@ const WordsMix = () => {
           if (idx !== 0) indicesToScrollAt.push(idx);
         }
       });
+      // if (breaks.length === 0 && indicesToScrollAt.length !== 0) {
       setBreaks(indicesToScrollAt);
+      // }
     }
   }, [words]);
 
@@ -113,7 +115,7 @@ const WordsMix = () => {
           />
         </>
       ) : (
-        <Loader />
+        <ArrowDownCircle />
       )}
     </WordsWrapper>
   );

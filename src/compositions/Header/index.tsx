@@ -1,51 +1,47 @@
 import {Menu, MenuButton, MenuItem, MenuList} from '@reach/menu-button';
 import {Hexagon} from '@styled-icons/feather';
 import React from 'react';
-import styled from 'styled-components';
-import css from '@styled-system/css';
+// import styled from 'styled-components';
+// import css from '@styled-system/css';
 
-import {useMe} from '../../../hooks/api/useMe';
-import {Box} from '../../Box';
+import {useMe} from '../../hooks/api/useMe';
+import {Box} from '../../components/Box';
+import {styled} from '../../styled';
 
-const HeaderContainer = styled(Box)({
+const HeaderContainer = styled(Box, {
   display: 'grid',
   gridTemplateAreas: '"reserved nav userspace"',
   gridTemplateColumns: '1fr 20vw 1fr',
 });
 
-const StyledMenuButton = styled(MenuButton)(
-  // color,
-  // background,
-  css({
-    borderRadius: '5px',
-    minWidth: '150px',
-    textTransform: 'uppercase',
-    border: 'none',
-    cursor: 'pointer',
-    bg: 'background2',
-    color: 'text',
-    fontWeight: 'bold',
-    transition: 'all .09s ease-in',
-    ':hover': {
-      bg: 'background3',
-    },
-  }),
-);
+const StyledMenuButton = styled(MenuButton, {
+  borderRadius: '5px',
+  minWidth: '150px',
+  textTransform: 'uppercase',
+  border: 'none',
+  cursor: 'pointer',
+  background: '$background2',
+  color: 'text',
+  fontWeight: 'bold',
+  transition: 'all .09s ease-in',
+  ':hover': {
+    background: '$background3',
+  },
+});
 
-const StyledMenuItem = styled(MenuItem)(
-  css({
-    display: 'grid',
-    gridAutoColumns: '200px',
-    gridAutoRows: '80px',
-    gridAutoFlow: 'column',
-    gap: '2em',
-  }),
-);
+const StyledMenuItem = styled(MenuItem, {
+  display: 'grid',
+  gridAutoColumns: '200px',
+  gridAutoRows: '80px',
+  gridAutoFlow: 'column',
+  gap: '2em',
+});
 
 export const Header = () => {
   const {user} = useMe();
   return (
-    <HeaderContainer gridArea="header">
+    // <HeaderContainer gridArea="header">
+    <HeaderContainer>
       <Box
         gridArea="nav"
         flexDirection="row"

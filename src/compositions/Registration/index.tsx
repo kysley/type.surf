@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSearchParams} from 'react-router-dom';
 
-import {Box} from '../../Box';
+import {Box} from '../../components/Box';
 
 export const Registration = () => {
   useSearchParams();

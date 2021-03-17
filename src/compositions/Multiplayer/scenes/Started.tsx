@@ -1,7 +1,7 @@
 import React from 'react';
-import {Box} from '../../../Box';
 
-import TypingAreaComposition from '../../TypingArea';
+import {Box} from '../../../components/Box';
+import {TypingMultiplayer} from '../../TypingArea/typing-area';
 import {Progress} from '../GameProgress';
 
 export const StartedScene = ({roomState}: any) => (
@@ -17,7 +17,7 @@ export const StartedScene = ({roomState}: any) => (
           <h1>{roomState?.countdown}</h1>
         </Box>
       )}
-      <TypingAreaComposition obfuscate={roomState?.state === 'STARTING'} />
+      <TypingMultiplayer obfuscate={roomState?.state === 'STARTING'} />
     </Box>
     <Progress players={roomState?.players} />
   </>

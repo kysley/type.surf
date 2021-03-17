@@ -1,21 +1,14 @@
 import React, {useEffect, useMemo} from 'react';
 import {useSpring, animated} from 'react-spring';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
-import {color} from 'styled-system';
-import styled from 'styled-components';
+// import styled from 'styled-components';
+import css from '@styled-system/css';
 
 import {EOLState} from '../state';
 import {wordIndex, letterIndex} from '../state';
-import {Box} from './Box';
+import {styled} from '../styled';
 
-const CaretBody = styled(animated.div)`
-  ${color}
-`;
-
-const Xx = styled(animated.div)((props) => ({
-  ...color(props),
-  // color: 'red',
-}));
+const StyledCaret = styled(animated.div, {background: '$caret'});
 
 export const Caret = ({
   container,
@@ -104,8 +97,7 @@ export const Caret = ({
         position: 'absolute',
       }}
     >
-      <Xx
-        bg="caret"
+      <StyledCaret
         style={{
           ...caretPos,
           width: '4px',

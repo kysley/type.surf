@@ -22,4 +22,4 @@ const Letter: React.FC<{self: WordState}> = ({self}) => {
   );
 };
 
-export default memo(Letter);
+export default Letter;

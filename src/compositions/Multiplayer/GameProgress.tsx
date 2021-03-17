@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {animated} from 'react-spring';
 import {color} from 'styled-system';
 
-import {Box} from '../../Box';
+import {Box} from '../../components/Box';
 
 const ProgressContainer = styled('div')({
   display: 'flex',

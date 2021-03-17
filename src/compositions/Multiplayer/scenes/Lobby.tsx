@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import {color} from 'styled-system';
-import {useSocketConnection} from '../../../../hooks/useSocketHandler';
 
-import {Box} from '../../../Box';
-import {Button} from '../../../Button';
+import {useSocketConnection} from '../../../hooks/useSocketHandler';
+import {Box} from '../../../components/Box';
+import {Button} from '../../../components/Button';
 
 const CompositionContainer = styled(Box)`
   display: grid;

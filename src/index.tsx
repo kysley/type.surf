@@ -1,14 +1,23 @@
+import './wdyr';
 import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import {RecoilRoot} from 'recoil';
 import {Provider as UrqlProvider} from 'urql';
 import {BrowserRouter} from 'react-router-dom';
+import '@reach/listbox/styles.css';
+import '@reach/menu-button/styles.css';
 
 import App from './App';
-import './index.css';
 import {urqlClient} from './utils/urqlClient';
 import {SocketProvider} from './hooks/useSocketHandler';
-import {socket} from './utils/socket';
+import {global} from './styled';
+
+const globalStyles = global({
+  '*, ::before, ::after': {boxSizing: 'border-box'},
+  body: {margin: 0},
+});
+
+globalStyles();
 
 ReactDOM.render(
   <React.StrictMode>

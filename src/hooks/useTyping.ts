@@ -37,9 +37,6 @@ function useTyping({ref, when = true}: useTypingProps) {
           if (!meta.hasStarted) {
             set(HasStartedState, true);
           }
-          // if (meta.testState === 'WAITING') {
-          //   set(testTypingState, 'STARTED');
-          // }
           if (!meta.eol) {
             const newWs = newWordState(key, meta);
             set(wordState(meta.wordIndex), newWs);
@@ -55,6 +52,7 @@ function useTyping({ref, when = true}: useTypingProps) {
         }
         case 'Space': {
           const res = forward(meta);
+          console.log(res.wordIndex);
           set(testHistory, res.history);
           set(wordIndex, res.wordIndex);
           set(letterIndex, res.letterIndex);

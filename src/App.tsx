@@ -1,34 +1,38 @@
 import React, {useEffect} from 'react';
-import styled, {ThemeProvider} from 'styled-components';
+import {ThemeProvider} from 'styled-components';
 import {Routes, Route} from 'react-router-dom';
 import {Toaster} from 'react-hot-toast';
 import {v4} from 'uuid';
 
-import './App.css';
-import TypingAreaCompsition from './components/compositions/TypingArea';
 import {DevTools} from './components/DevTools';
-import {themeFactory} from './themes/default';
+import {themeFactory} from './styled/themes/default';
 import {Box} from './components/Box';
 import {
   LobbyComposition,
   LobbyCompositionUNSAFE,
-} from './components/compositions/Multiplayer';
-import {Registration} from './components/compositions/Registration';
-import {Auth} from './components/compositions/Auth';
+} from './compositions/Multiplayer';
+import {Registration} from './compositions/Registration';
+import {Auth} from './compositions/Auth';
 import {useMe} from './hooks/api/useMe';
-import {Header} from './components/compositions/Header';
+import {Header} from './compositions/Header';
 import {useSocketConnection} from './hooks/useSocketHandler';
-import {Play} from './components/compositions/Play';
+import {Play} from './compositions/Play';
+import {styled} from './styled';
+import {Menu} from './compositions/Menu';
 
-const AppContainer = styled.main`
-  display: grid;
-  grid-template-areas: 'header' 'main' 'footer';
-  grid-template-rows: 55px 1fr 100px;
-  grid-template-columns: 80%;
-  justify-content: center;
-  min-height: 100vh;
-  gap: 3em;
-`;
+const AppContainer = styled('main', {
+  display: 'grid',
+  gridTemplateAreas: "'left main right'",
+  gridTemplateColumns: '1.75fr 8fr 1.75fr',
+  justifyContent: 'center',
+  minHeight: '100vh',
+  gap: '3em',
+});
+
+const Main = styled('div', {
+  display: 'grid',
+  gridArea: 'main',
+});
 
 //@ts-ignore
 const theme = themeFactory({
@@ -71,24 +75,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <Box color="text" bg="background" width="100vw" margin="auto">
         <AppContainer>
-          <Header />
-          <DevTools />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Box gridArea="main">
-                  <TypingAreaCompsition />
-                </Box>
-              }
-            />
-            <Route path="/play" element={<Play />} />
-            <Route path="p/:id" element={<LobbyComposition />} />
-            <Route path="/1" element={<LobbyCompositionUNSAFE />} />
-            <Route path="/register" element={<Registration />} />
-            <Route path="/auth" element={<Auth />} />
-          </Routes>
-          <Toaster />
+          <Menu />
+          <Main>
+            {/* <Header /> */}
+            <DevTools />
+            <Routes>
+              {/* <Navigate  to='/play' /> */}
+              <Route path="/" element={<Play />} />
+              <Route path="play/:id" element={<LobbyComposition />} />
+              <Route path="/1" element={<LobbyCompositionUNSAFE />} />
+              <Route path="/register" element={<Registration />} />
+              <Route path="/auth" element={<Auth />} />
+            </Routes>
+            <Toaster />
+          </Main>
         </AppContainer>
       </Box>
     </ThemeProvider>

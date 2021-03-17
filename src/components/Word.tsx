@@ -1,26 +1,35 @@
 import React, {memo} from 'react';
 import Recoil from 'recoil';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
-import {historyWhereIndex, wordStateWhereIndex} from '../state';
+import {historyWhereIndex, wordState} from '../state';
+import {styled} from '../styled';
 import Letter from './Letter';
 
 const {useRecoilValue} = Recoil;
 
-const WordContainer = styled.div<{correct: boolean | undefined}>`
-  border-bottom: 2px solid transparent;
-  border-bottom: ${({correct}) =>
-    correct !== undefined && !correct && '2px solid var(--miss-color)'};
-  margin: 0.25em;
-  font-size: 1.6em;
-`;
+const WordContainer = styled('div', {
+  borderBottom: '2px solid transparent',
+  margin: '.25em',
+  fontSize: '1.6rem',
+
+  variants: {
+    state: {
+      incorrect: {
+        borderBottom: '2px solid $error',
+      },
+    },
+  },
+});
 
 const Word = ({i}: {i: number}) => {
-  const $word = useRecoilValue(wordStateWhereIndex(i));
-  const $history = useRecoilValue(historyWhereIndex(i));
+  const $word = useRecoilValue(wordState(i));
+  // const $history = useRecoilValue(historyWhereIndex(i));
+  // const isIncorrect =
+  //   typeof $history === 'boolean' && !$history ? 'incorrect' : undefined;
 
   return (
-    <WordContainer correct={$history}>
+    <WordContainer state={undefined}>
       {$word.map((letter) => (
         <Letter self={letter} key={letter.id} />
       ))}
@@ -28,4 +37,4 @@ const Word = ({i}: {i: number}) => {
   );
 };
 
-export default memo(Word);
+export default Word;

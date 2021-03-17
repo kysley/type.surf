@@ -29,13 +29,6 @@ export const wordState = atomFamily<WordState[], number>({
   }),
 });
 
-export const wordStateWhereIndex = selectorFamily({
-  key: 'wordStateWhereIndex',
-  get: (index: number) => ({get}) => {
-    return get(wordState(index));
-  },
-});
-
 export const wordIndex = atom({
   key: 'wordIndex',
   default: 0,
@@ -113,7 +106,12 @@ const localStorageEffect = (key: string) => ({setSelf, onSet}) => {
 // // ====== Helpers ======
 
 function toString(word: WordState[]) {
-  return word.map((w) => w.letter).join('');
+  return word.reduce((acc, w) => {
+    if (w.input === w.letter) {
+      acc += w.input;
+    }
+    return acc;
+  }, '');
 }
 
 function compareWord(compare: string, to: string) {
@@ -163,6 +161,7 @@ export function forward(meta: testMeta): forwardReturn {
 
   if (wordIndex + 1 === wordList.length) {
     console.log('end of words');
+    ret.wordIndex = wordIndex;
     ret.EOW = true;
   } else {
     ret.wordIndex = wordIndex + 1;
@@ -190,6 +189,11 @@ export function back(meta: testMeta): backReturn {
       });
     } else {
       ret.wordState = wordState;
+      ret.wordState = produce(wordState, (draft) => {
+        draft[0].match = 'WAIT';
+        draft[0].input = '';
+      });
+      // letterIndex
     }
   }
   ret.letterIndex = produce(letterIndex, (draft) => {
@@ -221,11 +225,12 @@ export const statsForNerds = selector({
   get: ({get}) => {
     const position = get(wordIndex);
     const time = get(TimeEslapsedState);
+    const history = get(testHistory);
 
     let wods = [];
     let corr = 0;
     let incorr = 0;
-    for (let i = 0; i < position + 1; i++) {
+    for (let i = 0; i <= position + 1; i++) {
       const wod = get(wordState(i));
       wods.push(wod);
       for (let k = 0; k < wod.length; k++) {
@@ -234,17 +239,27 @@ export const statsForNerds = selector({
         else if (lett.match === 'EXTRA' || lett.match === 'MISS') incorr += 1;
       }
     }
-    const wpm = ((corr + position) * (60 / time)) / 5;
+    const cpm = Math.floor((corr / time) * 60);
+    const wpm = Math.floor(cpm / 5);
+
+    const acc = Math.round(
+      history.reduce((acc, bool) => {
+        if (bool) acc += 1;
+        return acc;
+      }, 0) / position,
+    );
     return {
       wpm: wpm || 0,
+      cpm,
       incorr,
+      acc,
     };
   },
 });
 
 export const OrbitState = atom({
   key: 'orbitstate',
-  default: localStorage.getItem('_surf.orbit') || 30,
+  default: Number(localStorage.getItem('_surf.orbit')) || 30,
   effects_UNSTABLE: [localStorageEffect('_surf.orbit')],
 });
 
@@ -274,9 +289,9 @@ export const TypingProgressState = selector({
 
     let val;
     if (mode === 'words') {
-      val = `${Number(orbit) - wI} / ${orbit}`;
+      val = `${orbit - wI} / ${orbit}`;
     } else {
-      val = `${eslapsed}s`;
+      val = `${orbit - eslapsed}s`;
     }
 
     return val;

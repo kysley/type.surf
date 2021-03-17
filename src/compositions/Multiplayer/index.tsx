@@ -3,11 +3,11 @@ import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import {useRecoilCallback, useRecoilValue, useSetRecoilState} from 'recoil';
 
-import {useRoomConnection} from '../../../hooks/useRoomConnection';
+import {useRoomConnection} from '../../hooks/useRoomConnection';
 import {LobbyScene} from './scenes/Lobby';
 import {StartedScene} from './scenes/Started';
-import {wordIndex, wordList, statsForNerds} from '../../../state';
-import {useSocketConnection} from '../../../hooks/useSocketHandler';
+import {wordIndex, wordList, statsForNerds} from '../../state';
+import {useSocketConnection} from '../../hooks/useSocketHandler';
 
 const Container = styled('div')({
   display: 'grid',
