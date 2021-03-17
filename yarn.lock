@@ -2033,17 +2033,17 @@
     webpack "^4.43.0"
     webpack-manifest-plugin "^2.2.0"
 
-"@stitches/core@^0.1.0-canary.16":
+"@stitches/core@^0.1.0-canary.20":
   version "0.1.0-canary.20"
   resolved "https://registry.yarnpkg.com/@stitches/core/-/core-0.1.0-canary.20.tgz#59974393d5e887adda94dc82ca7bb6574bc59cbc"
   integrity sha512-aWeUlFzCGl1hOa6hb3+OLuA4Z06wTjBjlp9yYHIA9JfN3E/BbjAYJ8i8dtD72t8N/QZcf7vAKpdMw8CrYffEIw==
 
-"@stitches/react@0.1.0-canary.16":
-  version "0.1.0-canary.16"
-  resolved "https://registry.yarnpkg.com/@stitches/react/-/react-0.1.0-canary.16.tgz#48856154cf5a61fe49925bc685944979d8e473f8"
-  integrity sha512-z23HyEQlcI2Sb4EPOCdtVX4Z2ZKDoC9sJFS8+iXImtk3qvm/uEjErlqd2/wgiznNxxuoIL4WtEJYptpq8ud3+g==
+"@stitches/react@0.1.0-canary.20":
+  version "0.1.0-canary.20"
+  resolved "https://registry.yarnpkg.com/@stitches/react/-/react-0.1.0-canary.20.tgz#e946a4d8cc6dc6e3ed146d15eda4ba1657578fb8"
+  integrity sha512-0TzcRBZYUYQgU1Tc9P3eA6nmviSlNIVZ5cu/HpTkp8ETAczebiCngTyabpiM3SvkIsaHjyJuEwTkBJbndF+sPQ==
   dependencies:
-    "@stitches/core" "^0.1.0-canary.16"
+    "@stitches/core" "^0.1.0-canary.20"
 
 "@styled-icons/feather@^10.18.0":
   version "10.18.0"

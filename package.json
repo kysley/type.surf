@@ -11,7 +11,7 @@
     "@reach/dialog": "^0.13.0",
     "@reach/listbox": "^0.13.0",
     "@reach/menu-button": "^0.13.0",
-    "@stitches/react": "0.1.0-canary.16",
+    "@stitches/react": "0.1.0-canary.20",
     "@styled-icons/feather": "^10.18.0",
     "@styled-system/css": "^5.1.5",
     "@welldone-software/why-did-you-render": "^6.1.0",
