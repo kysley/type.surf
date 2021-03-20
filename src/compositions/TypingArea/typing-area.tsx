@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import {useRecoilState, useRecoilValue} from 'recoil';
 
 import {focusedState, testTypingState} from '../../state';
@@ -35,7 +35,7 @@ const HiddenTextArea = styled('textarea', {
   textIndent: '-99999em',
 });
 
-export function TypingPractice({obfuscate = false}) {
+export const TypingPractice = ({obfuscate = false}) => {
   const [focused] = useRecoilState(focusedState);
   const typingState = useRecoilValue(testTypingState);
   const transitions = useTransition(typingState === 'DONE', null, {
@@ -71,7 +71,7 @@ export function TypingPractice({obfuscate = false}) {
       )}
     </Container>
   );
-}
+};
 
 export function TypingMultiplayer({obfuscate = false}) {
   const [focused] = useRecoilState(focusedState);

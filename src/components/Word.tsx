@@ -2,7 +2,7 @@ import React from 'react';
 import Recoil from 'recoil';
 // import styled from 'styled-components';
 
-import {wordState} from '../state';
+import {historyWhereIndex, wordState} from '../state';
 import {styled} from '../styled';
 import Letter from './Letter';
 
@@ -24,12 +24,12 @@ const WordContainer = styled('div', {
 
 const Word = ({i}: {i: number}) => {
   const $word = useRecoilValue(wordState(i));
-  // const $history = useRecoilValue(historyWhereIndex(i));
-  // const isIncorrect =
-  //   typeof $history === 'boolean' && !$history ? 'incorrect' : undefined;
+  const $history = useRecoilValue(historyWhereIndex(i));
+  const isIncorrect =
+    typeof $history === 'boolean' && !$history ? 'incorrect' : undefined;
 
   return (
-    <WordContainer state={undefined}>
+    <WordContainer state={isIncorrect}>
       {$word.map((letter) => (
         <Letter self={letter} key={letter.id} />
       ))}

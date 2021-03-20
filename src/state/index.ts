@@ -7,6 +7,19 @@ export const wordList = atom<string[]>({
   default: [],
 });
 
+export const renderRange = selector({
+  key: 'renderRange',
+  get: ({get}) => {
+    const wI = get(wordIndex);
+    const words = get(wordList);
+    const lowerBound = wI < 50 ? 0 : wI - 20;
+
+    const higherBound = wI + 50;
+
+    return words.slice(lowerBound, higherBound);
+  },
+});
+
 const wordWhereIndex = selectorFamily({
   key: 'wordWhereIndex',
   get: (index: number) => ({get}) => get(wordList)[index],

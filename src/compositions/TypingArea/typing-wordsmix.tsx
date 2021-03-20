@@ -1,10 +1,17 @@
-import React, {useRef, useEffect, useState, useCallback} from 'react';
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  useMemo,
+  memo,
+  useLayoutEffect,
+} from 'react';
 import styled from 'styled-components';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {useSpring, animated} from 'react-spring';
 import {ArrowDownCircle} from '@styled-icons/feather';
 
-import {wordList, wordIndex, focusedState} from '../../state';
+import {wordList, wordIndex, focusedState, renderRange} from '../../state';
 import Word from '../../components/Word';
 import {Caret} from '../../components/Caret';
 
@@ -28,7 +35,7 @@ const WordsContainer = styled(animated.div)`
 
 const WordsMix = () => {
   const [line, setLine] = useState(0);
-  const words = useRecoilValue(wordList);
+  const words = useRecoilValue(renderRange);
   const setFocused = useSetRecoilState(focusedState);
   const [breaks, setBreaks] = useState<number[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,9 +43,7 @@ const WordsMix = () => {
   const wI = useRecoilValue(wordIndex);
   const [top, set] = useSpring(() => ({top: 0}));
 
-  // I read somewhere that getBoundingClientRect().value
-  // reads from a cached copy, so this wouldnt cause reflow?
-  const getVerticalDistanceBetweenWords = useCallback(() => {
+  const verticalDistanceBetweenWords = useMemo(() => {
     if (breaks.length && containerRef.current) {
       const id1 = breaks[0];
       const id2 = breaks[1];
@@ -69,12 +74,12 @@ const WordsMix = () => {
   // only scroll if we are past the first line.
   // start on first line, caret moves to second line.
   // end of second line, we want to move the words up
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log(line);
-    if (line > 1) set({top: -((line - 1) * getVerticalDistanceBetweenWords())});
-  }, [line, set, getVerticalDistanceBetweenWords]);
+    if (line > 1) set({top: -((line - 1) * verticalDistanceBetweenWords)});
+  }, [line, set, verticalDistanceBetweenWords]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const indicesToScrollAt: number[] = [];
     if (containerRef.current) {
       const domWords = [...containerRef.current.children];
@@ -93,6 +98,10 @@ const WordsMix = () => {
     }
   }, [words]);
 
+  const keyedWords = useMemo(() => {
+    return words.map((word, idx) => word + idx);
+  }, [words]);
+
   return (
     <WordsWrapper ref={viewportRef}>
       {words.length ? (
@@ -104,8 +113,8 @@ const WordsMix = () => {
             ref={containerRef}
             style={top}
           >
-            {words.map((word, i) => (
-              <Word key={i} i={i} />
+            {keyedWords.map((word, i) => (
+              <Word key={word} i={i} />
             ))}
           </WordsContainer>
           <Caret

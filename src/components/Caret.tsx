@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect, useLayoutEffect, useMemo} from 'react';
 import {useSpring, animated} from 'react-spring';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 // import styled from 'styled-components';
@@ -45,7 +45,7 @@ export const Caret = ({
     if (wordIdx === 0) setCaretPos({marginLeft: 0, top: 8});
   }, [setCaretPos, wordIdx]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (container.current) {
       const parentDom = container.current.getBoundingClientRect();
       const wordDom = container.current.children[wordIdx];
