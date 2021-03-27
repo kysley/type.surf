@@ -5,26 +5,37 @@ overwrite: true
 hooks:
   afterAllFileWrite:
     - prettier --write
+
 generates:
-  src/graphql/gen/test.ts:
-    documents: 'src/graphql/**/**.ts'
-    plugins:
-      - typescript-document-nodes
+  src/graphql/gen.tsx:
+    documents: 'src/graphql/**/**.graphql'
     config:
-      namePrefix: 'gql'
-  # Get schemas from server
-  src/graphql/gen/schemas.ts:
-    documents: 'src/graphql/**/**.ts'
+      withHooks: true
     plugins:
       - typescript
-  # Create operations based on queries
-  src/graphql/gen/operations.ts:
-    documents: 'src/graphql/**/**.ts'
-    preset: import-types
-    presetConfig:
-      typesPath: ./schemas
-    plugins:
       - typescript-operations
+      - typescript-urql
+
+# generates:
+#   src/graphql/gen/test.ts:
+#     documents: 'src/graphql/**/**.ts'
+#     plugins:
+#       - typescript-document-nodes
+#     config:
+#       namePrefix: 'gql'
+#   # Get schemas from server
+#   src/graphql/gen/schemas.ts:
+#     documents: 'src/graphql/**/**.ts'
+#     plugins:
+#       - typescript
+#   # Create operations based on queries
+#   src/graphql/gen/operations.ts:
+#     documents: 'src/graphql/**/**.ts'
+#     preset: import-types
+#     presetConfig:
+#       typesPath: ./schemas
+#     plugins:
+#       - typescript-operations
   # 1. Export GraphQL documents
   # 2. React interface
   # src/queries/autogenerate/hooks.tsx:

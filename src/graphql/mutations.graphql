@@ -1,0 +1,17 @@
+mutation RegisterWithDiscord($access: String!, $type: String!) {
+    RegisterWithDiscord(access: $access, type: $type) {
+      token
+      account {
+        discriminator
+        username
+        id
+      }
+    }
+  }
+
+  mutation wordset($length: Int!, $seed: String) {
+    wordset(length: $length, seed: $seed) {
+      wordset
+      seed
+    }
+  }
