@@ -26,9 +26,12 @@ export function Play() {
   const {reset: resetTimer, start: startTimer} = useTimer({
     autostart: false,
     initialTime: orbitState,
-    timerType: 'DECREMENTAL',
+    timerType: modeState === 'time' ? 'DECREMENTAL' : 'INCREMENTAL',
     onTimeOver: () => setTypingState('DONE'),
-    onTimeUpdate: (time) => setTimeEslapsedState(orbitState - time),
+    onTimeUpdate: (time) => {
+      const timeToSet = modeState === 'time' ? orbitState - time : time;
+      setTimeEslapsedState(timeToSet);
+    },
     endTime: 0,
   });
 
@@ -56,7 +59,7 @@ export function Play() {
   return (
     <Box
       style={{position: 'relative'}}
-      width="80%"
+      width="72.3%"
       height="auto"
       justifyContent="center"
       justifySelf="center"

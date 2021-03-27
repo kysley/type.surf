@@ -243,24 +243,29 @@ export const statsForNerds = selector({
     let wods = [];
     let corr = 0;
     let incorr = 0;
-    for (let i = 0; i <= position + 1; i++) {
+    for (let i = 0; i <= position; i++) {
       const wod = get(wordState(i));
-      wods.push(wod);
-      for (let k = 0; k < wod.length; k++) {
+      wods.push(wod.length);
+      for (let k = 0; k < wod.length - 1; k++) {
         const lett = wod[k];
         if (lett.match === 'HIT') corr += 1;
         else if (lett.match === 'EXTRA' || lett.match === 'MISS') incorr += 1;
       }
     }
+
+    // const avg = wods.reduce((p, c) => p + c, 0) / wods.length;
     const cpm = Math.floor((corr / time) * 60);
+
     const wpm = Math.floor(cpm / 5);
 
-    const acc = Math.round(
-      history.reduce((acc, bool) => {
+    const acc = (
+      (history.reduce((acc, bool) => {
         if (bool) acc += 1;
         return acc;
-      }, 0) / position,
-    );
+      }, 0) /
+        position) *
+      100
+    ).toFixed(2);
     return {
       wpm: wpm || 0,
       cpm,

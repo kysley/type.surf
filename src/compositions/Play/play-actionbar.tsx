@@ -7,7 +7,12 @@ import {useRecoilState, useRecoilValue} from 'recoil';
 import styled from 'styled-components';
 import {useTypingControls} from '../../hooks/useTypingControls';
 
-import {HasStartedState, ModeState, OrbitState} from '../../state';
+import {
+  HasStartedState,
+  ModeState,
+  OrbitState,
+  statsForNerds,
+} from '../../state';
 import {Box} from '../../components/Box';
 import {Selection} from '../../components/ListBox/ListBox';
 import {Progressbar} from '../../components/Progress';
@@ -32,6 +37,18 @@ const StyledContextButton = styled(Box)(
   }),
 );
 
+const PlayerStats = () => {
+  const stats = useRecoilValue(statsForNerds);
+
+  console.log(stats);
+
+  return (
+    <Box flex="fill">
+      <span>wpm: {stats.wpm}</span>
+      <span>acc: {stats.acc}</span>
+    </Box>
+  );
+};
 const ContextButton: React.FC<any> = ({children, ...rest}) => {
   return (
     <StyledContextButton {...rest} as="button">
@@ -67,7 +84,9 @@ export function ActionBar() {
         {transitions.map(({item, key, props}) =>
           item ? (
             <animated.div key={key} style={{...props, width: '100%'}}>
-              <Stack direction="row"></Stack>
+              <Stack direction="row">
+                <PlayerStats />
+              </Stack>
             </animated.div>
           ) : (
             <animated.div key={key} style={{...props, width: '100%'}}>

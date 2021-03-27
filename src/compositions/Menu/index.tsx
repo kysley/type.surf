@@ -2,25 +2,42 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 
 import {styled} from '../../styled';
+import {MenuUser} from './MenuUser';
 
 const Container = styled('section', {
   height: '100%',
   gridArea: 'left',
   background: '$background2',
-  padding: '1em',
+  padding: '0.5em',
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexDirection: 'column',
 });
 
 const MenuBody = styled('div', {
   background: '$background3',
   marginTop: '5em',
-  padding: '1em',
+  padding: '1em 1em 0 1em',
   display: 'flex',
   flexDirection: 'column',
+  borderRadius: '6px',
 });
 
 const MenuItem = styled(NavLink, {
   fontWeight: 'bold',
-  padding: '1em',
+  marginBottom: '1em',
+  height: '35px',
+  display: 'flex',
+  alignItems: 'center',
+  color: '$text',
+  textDecoration: 'none',
+  paddingLeft: '0.5em',
+  borderRadius: '6px',
+
+  '&.active': {
+    background: '$background2',
+  },
+
   '&:hover': {
     background: '$caret',
   },
@@ -32,5 +49,6 @@ export const Menu = () => (
       <MenuItem to="/">Practice</MenuItem>
       <MenuItem to="/play">Multiplayer</MenuItem>
     </MenuBody>
+    <MenuUser />
   </Container>
 );

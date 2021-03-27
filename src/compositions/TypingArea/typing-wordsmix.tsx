@@ -43,20 +43,6 @@ const WordsMix = () => {
   const wI = useRecoilValue(wordIndex);
   const [top, set] = useSpring(() => ({top: 0}));
 
-  const verticalDistanceBetweenWords = useMemo(() => {
-    if (breaks.length && containerRef.current) {
-      const id1 = breaks[0];
-      const id2 = breaks[1];
-      const xOne = containerRef.current?.children[id1].getBoundingClientRect()
-        .y;
-      const xTwo = containerRef.current?.children[id2].getBoundingClientRect()
-        .y;
-
-      return Math.abs(xOne - xTwo);
-    }
-    return 0;
-  }, [breaks]);
-
   useEffect(() => {
     // reset the line tracker and top styling
     // this will probably break when you can backspace across words
@@ -66,18 +52,22 @@ const WordsMix = () => {
     }
     // THE END OF THE LINE?
     const bumpOnIndex = breaks?.indexOf(wI) ?? -1;
+    console.log(bumpOnIndex);
     if (bumpOnIndex !== -1) {
       setLine((prev) => prev + 1);
+      setBreaks((prev) => prev.slice(1));
     }
   }, [set, wI, breaks]);
 
   // only scroll if we are past the first line.
   // start on first line, caret moves to second line.
   // end of second line, we want to move the words up
-  useLayoutEffect(() => {
+  useEffect(() => {
     console.log(line);
-    if (line > 1) set({top: -((line - 1) * verticalDistanceBetweenWords)});
-  }, [line, set, verticalDistanceBetweenWords]);
+    if (line > 1) {
+      set({top: top.top.getValue() - 43.33333});
+    }
+  }, [line, set, top]);
 
   useLayoutEffect(() => {
     const indicesToScrollAt: number[] = [];

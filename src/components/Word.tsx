@@ -11,7 +11,8 @@ const {useRecoilValue} = Recoil;
 const WordContainer = styled('div', {
   borderBottom: '2px solid transparent',
   margin: '.25em',
-  fontSize: '1.6rem',
+  fontSize: '1.96rem',
+  fontFamily: 'monospace',
 
   variants: {
     state: {
