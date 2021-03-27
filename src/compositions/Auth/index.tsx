@@ -1,18 +1,10 @@
 import React, {useEffect} from 'react';
 import {Navigate, useLocation} from 'react-router-dom';
-import {useMutation} from 'urql';
-import type {
-  RegisterWithDiscordMutation,
-  RegisterWithDiscordMutationVariables,
-} from '../../graphql/gen/operations';
-import {REGISTER_WITH_DISCORD} from '../../graphql/mutations';
+import {useRegisterWithDiscordMutation} from '../../graphql/gen';
 import {useMe} from '../../hooks/api/useMe';
 
 export const Auth = () => {
-  const [dat, mut] = useMutation<
-    RegisterWithDiscordMutation,
-    RegisterWithDiscordMutationVariables
-  >(REGISTER_WITH_DISCORD);
+  const [dat, mut] = useRegisterWithDiscordMutation();
   const location = useLocation();
   const {reexec} = useMe();
 

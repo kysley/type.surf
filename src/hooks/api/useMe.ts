@@ -1,13 +1,9 @@
-import {useQuery} from 'urql';
 import toast from 'react-hot-toast';
 
-import {ME} from '../../graphql/queries';
-import type {MeQuery, MeQueryVariables} from '../../graphql/gen/operations';
+import {useMeQuery} from '../../graphql/gen';
 
 export function useMe() {
-  const [result, reexec] = useQuery<MeQuery, MeQueryVariables>({
-    query: ME,
-  });
+  const [result, reexec] = useMeQuery();
 
   const {data, fetching, error} = result;
 

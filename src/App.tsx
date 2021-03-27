@@ -13,17 +13,17 @@ import {
 } from './compositions/Multiplayer';
 import {Registration} from './compositions/Registration';
 import {Auth} from './compositions/Auth';
-import {useMe} from './hooks/api/useMe';
 import {Header} from './compositions/Header';
 import {useSocketConnection} from './hooks/useSocketHandler';
 import {Play} from './compositions/Play';
 import {styled} from './styled';
 import {Menu} from './compositions/Menu';
+import {useMe} from './hooks/api/useMe';
 
 const AppContainer = styled('main', {
   display: 'grid',
   gridTemplateAreas: "'left main right'",
-  gridTemplateColumns: '1.75fr 8fr 1.75fr',
+  gridTemplateColumns: '25vmin 8fr 1.75fr',
   justifyContent: 'center',
   minHeight: '100vh',
   gap: '3em',

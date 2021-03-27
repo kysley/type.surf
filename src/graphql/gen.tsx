@@ -153,7 +153,12 @@ export type WordsetMutation = {__typename?: 'Mutation'} & {
 export type MeQueryVariables = Exact<{[key: string]: never}>;
 
 export type MeQuery = {__typename?: 'Query'} & {
-  me?: Maybe<{__typename?: 'Account'} & Pick<Account, 'username'>>;
+  me?: Maybe<
+    {__typename?: 'Account'} & Pick<
+      Account,
+      'username' | 'id' | 'discriminator' | 'level'
+    >
+  >;
 };
 
 export const RegisterWithDiscordDocument = gql`
@@ -193,6 +198,9 @@ export const MeDocument = gql`
   query me {
     me {
       username
+      id
+      discriminator
+      level
     }
   }
 `;

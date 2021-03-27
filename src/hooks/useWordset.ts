@@ -1,17 +1,10 @@
 import {useRecoilCallback} from 'recoil';
-import {useMutation} from 'urql';
 
-import type {
-  WordsetMutation,
-  WordsetMutationVariables,
-} from '../graphql/gen/operations';
-import {WORDSET} from '../graphql/mutations';
+import {useWordsetMutation} from '../graphql/gen';
 import {ModeState, OrbitState, wordList} from '../state';
 
 export function useWordset() {
-  const [, mut] = useMutation<WordsetMutation, WordsetMutationVariables>(
-    WORDSET,
-  );
+  const [, mut] = useWordsetMutation();
   const getWordset = useRecoilCallback(
     ({snapshot, reset, set}) => async () => {
       const orbit = await snapshot.getPromise(OrbitState);
