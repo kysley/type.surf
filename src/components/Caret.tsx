@@ -25,7 +25,7 @@ export const Caret = ({
   const [caretPos, setCaretPos] = useSpring(() => ({
     marginLeft: 0,
     top: 5,
-    config: {duration: 95, friction: 5},
+    config: {duration: 55, friction: 5, precision: 1},
   }));
 
   const horizontalSpaceBetweenWords = useMemo(
