@@ -155,7 +155,7 @@ type forwardReturn = {
   history: boolean[];
   wordIndex: number;
   letterIndex: number;
-  EOW?: boolean;
+  done?: boolean;
 };
 
 export function forward(meta: testMeta): forwardReturn {
@@ -175,7 +175,7 @@ export function forward(meta: testMeta): forwardReturn {
   if (wordIndex + 1 === wordList.length) {
     console.log('end of words');
     ret.wordIndex = wordIndex;
-    ret.EOW = true;
+    ret.done = true;
   } else {
     ret.wordIndex = wordIndex + 1;
   }
@@ -228,11 +228,6 @@ export const EOLState = atom({
   default: false,
 });
 
-export const EOWState = atom({
-  key: 'eowstate',
-  default: false,
-});
-
 export const statsForNerds = selector({
   key: 'statsfornerds',
   get: ({get}) => {
@@ -253,10 +248,11 @@ export const statsForNerds = selector({
       }
     }
 
-    // const avg = wods.reduce((p, c) => p + c, 0) / wods.length;
-    const cpm = Math.floor((corr / time) * 60);
+    const hits = corr + incorr + position;
 
-    const wpm = Math.floor(cpm / 5);
+    const wpm = Math.round(((corr + position) * (60 / time)) / 5);
+    const raw = Math.round((hits * (60 / time)) / 5);
+    // const cpm = Math.floor((hits / time) * 60);
 
     const acc = (
       (history.reduce((acc, bool) => {
@@ -268,7 +264,7 @@ export const statsForNerds = selector({
     ).toFixed(2);
     return {
       wpm: wpm || 0,
-      cpm,
+      cpm: 0,
       incorr,
       acc,
     };
@@ -287,9 +283,10 @@ export const ModeState = atom({
   effects_UNSTABLE: [localStorageEffect('_surf.mode')],
 });
 
-export const HasStartedState = atom({
+export const HasStartedState = selector({
   key: 'hasstartedstate',
-  default: false,
+  get: ({get}) => get(testTypingState) === 'STARTED',
+  set: ({set}, newValue) => set(testTypingState, newValue as TestState),
 });
 
 export const TimeEslapsedState = atom({

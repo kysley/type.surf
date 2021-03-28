@@ -2,8 +2,6 @@ import {useRecoilCallback} from 'recoil';
 
 import {
   EOLState,
-  EOWState,
-  HasStartedState,
   letterIndex,
   testHistory,
   testTypingState,
@@ -24,9 +22,7 @@ export function useTypingControls() {
 
       reset(wordIndex);
       reset(letterIndex);
-      reset(HasStartedState);
       reset(EOLState);
-      reset(EOWState);
       reset(testHistory);
       reset(testTypingState);
     },

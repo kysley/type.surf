@@ -11,9 +11,8 @@ import {
   newWordState,
   back,
   forward,
-  HasStartedState,
-  EOWState,
   focusedState,
+  testTypingState,
 } from '../state';
 
 function useTyping() {
@@ -35,8 +34,8 @@ function useTyping() {
           set(testHistory, res.history);
           set(wordIndex, res.wordIndex);
           set(letterIndex, res.letterIndex);
-          if (res.EOW) {
-            set(EOWState, res.EOW);
+          if (res.done) {
+            set(testTypingState, 'DONE');
           }
           break;
         }
@@ -48,7 +47,7 @@ function useTyping() {
         }
         default: {
           if (!meta.hasStarted) {
-            set(HasStartedState, true);
+            set(testTypingState, 'STARTED');
           }
           if (!meta.eol) {
             const newWs = newWordState(key, meta);

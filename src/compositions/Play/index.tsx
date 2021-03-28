@@ -1,60 +1,22 @@
 import React, {useEffect} from 'react';
-import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
-import {useTimer} from 'use-timer';
+import {useRecoilValue} from 'recoil';
 
 import {Box} from '../../components/Box';
-import {
-  testTypingState,
-  EOWState,
-  HasStartedState,
-  ModeState,
-  OrbitState,
-  TimeEslapsedState,
-} from '../../state';
+import {ModeState, OrbitState} from '../../state';
 import {TypingPractice} from '../TypingArea/typing-area';
 import {useWordset} from '../../hooks/useWordset';
+import {useLocalGame} from '../../hooks/useLocalGame';
 
 export function Play() {
   const {getWordset} = useWordset();
-  const [orbitState, setOrbitState] = useRecoilState(OrbitState);
-  const [modeState, setModeState] = useRecoilState(ModeState);
-  const setTypingState = useSetRecoilState(testTypingState);
-  const hasStartedState = useRecoilValue(HasStartedState);
-  const eowState = useRecoilValue(EOWState);
-  const setTimeEslapsedState = useSetRecoilState(TimeEslapsedState);
+  const orbitState = useRecoilValue(OrbitState);
+  const modeState = useRecoilValue(ModeState);
 
-  const {reset: resetTimer, start: startTimer} = useTimer({
-    autostart: false,
-    initialTime: orbitState,
-    timerType: modeState === 'time' ? 'DECREMENTAL' : 'INCREMENTAL',
-    onTimeOver: () => setTypingState('DONE'),
-    onTimeUpdate: (time) => {
-      const timeToSet = modeState === 'time' ? orbitState - time : time;
-      setTimeEslapsedState(timeToSet);
-    },
-    endTime: 0,
-  });
+  useLocalGame();
 
   useEffect(() => {
     getWordset();
   }, [modeState, orbitState, getWordset]);
-
-  useEffect(() => {
-    if (hasStartedState && modeState === 'time') {
-      startTimer();
-      setTypingState('STARTED');
-    } else if (!hasStartedState && modeState === 'time') {
-      resetTimer();
-    }
-  }, [hasStartedState, modeState, setTypingState]);
-
-  useEffect(() => {
-    if (eowState) {
-      setTypingState('DONE');
-    } else {
-      setTypingState('WAITING');
-    }
-  }, [eowState, setTypingState]);
 
   return (
     <Box
