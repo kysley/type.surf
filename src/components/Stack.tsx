@@ -15,5 +15,9 @@ export const Stack = styled(Box)<{direction: 'row' | 'column'}>(
       marginTop: direction === 'column' ? '1rem' : undefined,
       marginRight: direction === 'row' ? '1rem' : undefined,
     },
+
+    ':first-child': {
+      marginTop: undefined,
+    },
   }),
 );

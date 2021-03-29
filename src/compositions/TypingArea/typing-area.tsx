@@ -31,7 +31,7 @@ const HiddenTextArea = styled('textarea', {
   resize: 'none',
   zIndex: 1,
   overflow: 'hidden',
-  whietSpace: 'pre',
+  whiteSpace: 'pre',
   textIndent: '-99999em',
 });
 

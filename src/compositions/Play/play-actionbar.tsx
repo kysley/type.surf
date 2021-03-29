@@ -1,12 +1,10 @@
 import React from 'react';
 import {ChevronsRight, Minus, RefreshCw} from '@styled-icons/feather';
-import css from '@styled-system/css';
 import {useTransition} from 'react-spring';
 import {animated} from 'react-spring';
 import {useRecoilState, useRecoilValue} from 'recoil';
-import styled from 'styled-components';
-import {useTypingControls} from '../../hooks/useTypingControls';
 
+import {useTypingControls} from '../../hooks/useTypingControls';
 import {
   HasStartedState,
   ModeState,
@@ -17,25 +15,7 @@ import {Box} from '../../components/Box';
 import {Selection} from '../../components/ListBox/ListBox';
 import {Progressbar} from '../../components/Progress';
 import {Stack} from '../../components/Stack';
-
-const StyledContextButton = styled(Box)(
-  css({
-    outline: 'none !important',
-    border: 'none',
-    height: '40px',
-    padding: '0.5rem 1rem',
-    bg: 'background2',
-    cursor: 'pointer',
-    color: 'text',
-    borderRadius: '4px',
-    ':hover': {
-      bg: 'background3',
-    },
-    ':active': {
-      bg: 'background3',
-    },
-  }),
-);
+import {Button} from '../../components/Button';
 
 const PlayerStats = () => {
   const stats = useRecoilValue(statsForNerds);
@@ -47,13 +27,6 @@ const PlayerStats = () => {
       <span>wpm: {stats.wpm}</span>
       <span>acc: {stats.acc}</span>
     </Box>
-  );
-};
-const ContextButton: React.FC<any> = ({children, ...rest}) => {
-  return (
-    <StyledContextButton {...rest} as="button">
-      {children}
-    </StyledContextButton>
   );
 };
 
@@ -119,12 +92,12 @@ export function ActionBar() {
           ),
         )}
       </Box>
-      <ContextButton tabIndex="0" bg="error2" onClick={repeat} gridColumn={9}>
-        <RefreshCw size="20px" strokeWidth="2px" />
-      </ContextButton>
-      <ContextButton tabIndex="0" bg="text" onClick={reset} gridColumn={10}>
+      <Button onClick={repeat} css={{gridColumn: 9}} type="secondary">
+        <RefreshCw size="24px" strokeWidth="2px" />
+      </Button>
+      <Button onClick={reset} css={{gridColumn: 10}}>
         <ChevronsRight size="24px" strokeWidth="2px" />
-      </ContextButton>
+      </Button>
     </Box>
   );
 }

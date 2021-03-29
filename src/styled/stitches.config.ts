@@ -18,5 +18,9 @@ export const {styled, css, global} = createCss({
       background3: darken('#323437', 0.1), //$background
       // background3: '#eee', //$background
     },
+    shadows: {
+      base:
+        'rgb(0 0 0 / 10%) 0px 4px 0px -1px, rgb(0 0 0 / 6%) 0px 3px 7px -3px',
+    },
   },
 });

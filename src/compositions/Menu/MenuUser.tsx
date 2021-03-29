@@ -13,18 +13,16 @@ export const MenuUser = () => {
       {user ? null : (
         <div>
           <Button>Sign Up</Button>
-          <Button variant="secondary">Login</Button>
+          <Button type="secondary">Login</Button>
         </div>
       )}
+      <></>
       <MUContainer>
         <UserIcon />
-        {user ? (
-          <span>
-            {user.username}#{user.discriminator}
-          </span>
-        ) : (
-          <span>Anonymous #1234</span>
-        )}
+        <div>
+          <UserName>{user.username}</UserName>
+          <UserDisc>#{user.discriminator}</UserDisc>
+        </div>
       </MUContainer>
     </section>
   );
@@ -36,14 +34,25 @@ const MUContainer = styled('div', {
   borderRadius: '4px',
   padding: '.5em',
   // margin: '1em',
-  height: '50px',
+  height: '75px',
   alignItems: 'center',
-  justifyContent: 'space-around',
+  // justifyContent: 'space-around',
 });
 
 const UserIcon = styled('div', {
   background: 'green',
-  height: '30px',
-  width: '30px',
-  borderRadius: '50%',
+  height: '35px',
+  width: '35px',
+  borderRadius: '18%',
+  marginRight: '1em',
+});
+
+const UserName = styled('h5', {
+  fontSize: '1rem',
+  margin: 0,
+  paddingBottom: '.25em',
+});
+
+const UserDisc = styled('h6', {
+  margin: 0,
 });
