@@ -4,7 +4,7 @@ import {useRegisterWithDiscordMutation} from '../../graphql/gen';
 import {useMe} from '../../hooks/api/useMe';
 
 export const Auth = () => {
-  const [dat, mut] = useRegisterWithDiscordMutation();
+  const [{data}, mut] = useRegisterWithDiscordMutation();
   const location = useLocation();
   const {reexec} = useMe();
 
@@ -13,16 +13,20 @@ export const Auth = () => {
     if (qs.has('access_token')) {
       const accessToken = qs.get('access_token') as string;
       const tokenType = qs.get('token_type') as string;
-      mut({access: accessToken, type: tokenType});
+      mut({access: accessToken, type: tokenType}).then((value) => {
+        localStorage.setItem('token', value.data?.RegisterWithDiscord?.token!);
+      });
     }
   }, [mut, location]);
 
   useEffect(() => {
-    if (dat.data?.RegisterWithDiscord) {
-      localStorage.setItem('token', dat.data.RegisterWithDiscord.token!);
+    console.log(data);
+    if (data?.RegisterWithDiscord) {
+      localStorage.setItem('token', data.RegisterWithDiscord.token!);
       reexec({requestPolicy: 'network-only'});
     }
-  }, [dat, reexec]);
+  }, [data, reexec]);
 
+  // wait for a response, or a 3s redirect, etc
   return <Navigate to={'/'} />;
 };
