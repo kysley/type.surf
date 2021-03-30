@@ -6,7 +6,6 @@ import {v4} from 'uuid';
 
 import {DevTools} from './components/DevTools';
 import {themeFactory} from './styled/themes/default';
-import {Box} from './components/Box';
 import {
   LobbyComposition,
   LobbyCompositionUNSAFE,
@@ -32,6 +31,13 @@ const AppContainer = styled('main', {
 const Main = styled('div', {
   display: 'grid',
   gridArea: 'main',
+});
+
+const Box = styled('div', {
+  color: '$text',
+  background: '$background',
+  width: '100vw',
+  margin: 'auto',
 });
 
 //@ts-ignore
@@ -73,7 +79,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box color="text" bg="background" width="100vw" margin="auto">
+      <Box>
         <AppContainer>
           <Menu />
           <Main>

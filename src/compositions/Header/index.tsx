@@ -1,8 +1,6 @@
 import {Menu, MenuButton, MenuItem, MenuList} from '@reach/menu-button';
 import {Hexagon} from '@styled-icons/feather';
 import React from 'react';
-// import styled from 'styled-components';
-// import css from '@styled-system/css';
 
 import {useMe} from '../../hooks/api/useMe';
 import {Box} from '../../components/Box';

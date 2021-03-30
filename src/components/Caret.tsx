@@ -1,8 +1,6 @@
 import React, {useEffect, useLayoutEffect, useMemo} from 'react';
 import {useSpring, animated} from 'react-spring';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
-// import styled from 'styled-components';
-// import css from '@styled-system/css';
 
 import {EOLState} from '../state';
 import {wordIndex, letterIndex} from '../state';

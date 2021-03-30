@@ -1,16 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import {animated} from 'react-spring';
-import {color} from 'styled-system';
 
 import {Box} from '../../components/Box';
+import {styled} from '../../styled';
 
-const ProgressContainer = styled('div')({
+const ProgressContainer = styled('div', {
   display: 'flex',
   gridArea: 'gl',
 });
 
-const List = styled(animated.ul)({
+const List = styled(animated.ul, {
   position: 'relative',
   listStyle: 'none',
   display: 'grid',
@@ -23,15 +22,14 @@ const List = styled(animated.ul)({
   // opacity: 0.5,
 });
 
-const ListItem = styled(animated.li)((props) => ({
-  ...color(props),
+const ListItem = styled(animated.li, {
   padding: '.51em',
   display: 'grid',
   gap: '1em',
   position: 'relative',
-  color: 'white',
+  color: '$text',
   opacity: 0.4,
-}));
+});
 
 export const Progress = ({players}: {players: any[]}) => {
   // const transitions = useTransition(players, (player) => player.id, {

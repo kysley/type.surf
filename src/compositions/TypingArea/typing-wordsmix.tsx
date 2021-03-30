@@ -3,35 +3,34 @@ import React, {
   useEffect,
   useState,
   useMemo,
-  memo,
   useLayoutEffect,
 } from 'react';
-import styled from 'styled-components';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {useSpring, animated} from 'react-spring';
 import {ArrowDownCircle} from '@styled-icons/feather';
 
-import {wordList, wordIndex, focusedState, renderRange} from '../../state';
+import {wordIndex, focusedState, renderRange} from '../../state';
 import Word from '../../components/Word';
 import {Caret} from '../../components/Caret';
+import {styled} from '../../styled';
 
-const WordsWrapper = styled.div`
-  opacity: 1;
-  height: 130px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  width: 100%;
-`;
+const WordsWrapper = styled('div', {
+  opacity: '1',
+  height: '130px',
+  overflow: 'hidden',
+  position: 'relative',
+  display: 'flex',
+  width: '100%',
+});
 
-const WordsContainer = styled(animated.div)`
-  display: flex;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  user-select: none;
-  position: absolute;
-  outline: none;
-`;
+const WordsContainer = styled(animated.div, {
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignContent: 'flex-start',
+  userSelect: 'none',
+  position: 'absolute',
+  outline: 'none',
+});
 
 const WordsMix = () => {
   const [line, setLine] = useState(0);
