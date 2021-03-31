@@ -47,6 +47,21 @@ export type Result = {
   createdAt: Scalars['DateTime'];
   id: Scalars['String'];
   wpm: Scalars['Int'];
+  acc: Scalars['Int'];
+  characters: Scalars['String'];
+  raw: Scalars['Int'];
+  seed: Scalars['String'];
+  mode: Mode;
+};
+
+export type CreateResultInput = {
+  wpm: Scalars['Int'];
+  raw: Scalars['Int'];
+  seed: Scalars['String'];
+  acc: Scalars['Int'];
+  cpm: Scalars['Int'];
+  characters: Scalars['String'];
+  mode: Mode;
 };
 
 export type AuthPayload = {
@@ -97,7 +112,7 @@ export type Mutation = {
   __typename?: 'Mutation';
   RegisterWithDiscord?: Maybe<AuthPayload>;
   wordset?: Maybe<WordsetPayload>;
-  createresult?: Maybe<Result>;
+  CreateResult?: Maybe<Result>;
 };
 
 export type MutationRegisterWithDiscordArgs = {
@@ -111,14 +126,8 @@ export type MutationWordsetArgs = {
   punctuate?: Maybe<Scalars['Boolean']>;
 };
 
-export type MutationCreateresultArgs = {
-  wpm: Scalars['Int'];
-  raw: Scalars['Int'];
-  seed: Scalars['String'];
-  acc: Scalars['Int'];
-  cpm: Scalars['Int'];
-  characters: Scalars['String'];
-  mode: Mode;
+export type MutationCreateResultArgs = {
+  input: CreateResultInput;
 };
 
 export type RegisterWithDiscordMutationVariables = Exact<{
@@ -148,6 +157,14 @@ export type WordsetMutation = {__typename?: 'Mutation'} & {
   wordset?: Maybe<
     {__typename?: 'WordsetPayload'} & Pick<WordsetPayload, 'wordset' | 'seed'>
   >;
+};
+
+export type CreateResultMutationVariables = Exact<{
+  input: CreateResultInput;
+}>;
+
+export type CreateResultMutation = {__typename?: 'Mutation'} & {
+  CreateResult?: Maybe<{__typename?: 'Result'} & Pick<Result, 'wpm'>>;
 };
 
 export type MeQueryVariables = Exact<{[key: string]: never}>;
@@ -192,6 +209,19 @@ export const WordsetDocument = gql`
 export function useWordsetMutation() {
   return Urql.useMutation<WordsetMutation, WordsetMutationVariables>(
     WordsetDocument,
+  );
+}
+export const CreateResultDocument = gql`
+  mutation CreateResult($input: CreateResultInput!) {
+    CreateResult(input: $input) {
+      wpm
+    }
+  }
+`;
+
+export function useCreateResultMutation() {
+  return Urql.useMutation<CreateResultMutation, CreateResultMutationVariables>(
+    CreateResultDocument,
   );
 }
 export const MeDocument = gql`

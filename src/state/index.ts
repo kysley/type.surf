@@ -228,6 +228,23 @@ export const EOLState = atom({
   default: false,
 });
 
+export const ResultSnapshot = selector({
+  key: 'resultsnapshot',
+  get: ({get}) => {
+    const stats = get(statsForNerds);
+    const mode = get(ModeState);
+
+    return {
+      wpm: stats.wpm,
+      acc: Math.floor(Number(stats.acc)),
+      cpm: stats.cpm,
+      mode: mode.toUpperCase(),
+      raw: 0,
+      characters: '',
+    };
+  },
+});
+
 export const statsForNerds = selector({
   key: 'statsfornerds',
   get: ({get}) => {

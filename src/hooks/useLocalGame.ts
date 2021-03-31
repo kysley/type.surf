@@ -1,9 +1,17 @@
 import {useEffect} from 'react';
-import {useRecoilState, useRecoilValue, useSetRecoilState} from 'recoil';
+import {
+  useRecoilCallback,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from 'recoil';
 import {useTimer} from 'use-timer';
+
+import {useCreateResultMutation, useWordsetMutation} from '../graphql/gen';
 import {
   ModeState,
   OrbitState,
+  ResultSnapshot,
   testTypingState,
   TimeEslapsedState,
 } from '../state';
@@ -13,6 +21,8 @@ export function useLocalGame() {
   const orbitState = useRecoilValue(OrbitState);
   const setTimeEslapsedState = useSetRecoilState(TimeEslapsedState);
   const [typingState, setTypingState] = useRecoilState(testTypingState);
+  const [{data}, mutate] = useCreateResultMutation();
+  const [{data: wordsetData}] = useWordsetMutation();
 
   const {reset: resetTimer, start: startTimer, pause} = useTimer({
     autostart: false,
@@ -29,10 +39,28 @@ export function useLocalGame() {
   useEffect(() => {
     if (typingState === 'DONE') {
       pause();
+      maybeSendResult();
     } else if (typingState === 'WAITING') {
       resetTimer();
     } else if (typingState === 'STARTED') {
       startTimer();
     }
   }, [typingState, pause, resetTimer, startTimer]);
+
+  const maybeSendResult = useRecoilCallback(
+    ({snapshot}) => async () => {
+      const snap = await snapshot.getPromise(ResultSnapshot);
+      // do something here to validate if we should send it
+      await mutate({
+        input: {
+          ...snap,
+          seed: wordsetData?.wordset?.seed || 'UNKNOWN',
+        },
+      });
+      // socket.emit('client.stats', {stats});
+      // return stats;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 }
