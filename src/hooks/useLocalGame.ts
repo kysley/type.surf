@@ -36,17 +36,6 @@ export function useLocalGame() {
     endTime: modeState === 'time' ? 0 : undefined,
   });
 
-  useEffect(() => {
-    if (typingState === 'DONE') {
-      pause();
-      maybeSendResult();
-    } else if (typingState === 'WAITING') {
-      resetTimer();
-    } else if (typingState === 'STARTED') {
-      startTimer();
-    }
-  }, [typingState, pause, resetTimer, startTimer]);
-
   const maybeSendResult = useRecoilCallback(
     ({snapshot}) => async () => {
       const snap = await snapshot.getPromise(ResultSnapshot);
@@ -60,7 +49,17 @@ export function useLocalGame() {
       // socket.emit('client.stats', {stats});
       // return stats;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [mutate, wordsetData?.wordset?.seed],
   );
+
+  useEffect(() => {
+    if (typingState === 'DONE') {
+      pause();
+      maybeSendResult();
+    } else if (typingState === 'WAITING') {
+      resetTimer();
+    } else if (typingState === 'STARTED') {
+      startTimer();
+    }
+  }, [typingState, pause, resetTimer, startTimer, maybeSendResult]);
 }
