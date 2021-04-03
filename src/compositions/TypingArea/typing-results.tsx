@@ -1,3 +1,4 @@
+import {ChevronsRight, CornerDownLeft, Share} from '@styled-icons/feather';
 import React from 'react';
 import {useRecoilValue} from 'recoil';
 
@@ -21,26 +22,34 @@ export function TypingResults() {
           <Stat>{stats.acc}</Stat>
         </div>
       </StatsGrid>
-      <div>
-        <button onClick={repeat}>repeat</button>
-        <button onClick={reset}>reset</button>
-      </div>
+      <ActionsGrid>
+        <ActionButton onClick={repeat}>
+          <CornerDownLeft />
+        </ActionButton>
+        <ActionButton onClick={reset}>
+          <ChevronsRight />
+        </ActionButton>
+        <ActionButton onClick={reset}>
+          <Share />
+        </ActionButton>
+      </ActionsGrid>
     </Container>
   );
 }
 
 const Container = styled('div', {
-  flex: 'fill',
   display: 'flex',
   height: '300px',
   background: '$background2',
   padding: '2em',
+  position: 'relative',
+  justifyContent: 'space-between',
 });
 
 const StatsGrid = styled('section', {
   display: 'grid',
-  gridTemplateColumns: '1fr 1fr 1fr',
-  gridTemplateRows: '1fr 1fr 1fr',
+  gridTemplateColumns: '1fr 1fr',
+  gridTemplateRows: '1fr 1fr',
 });
 
 const StatTitle = styled('h3', {
@@ -51,4 +60,27 @@ const StatTitle = styled('h3', {
 
 const Stat = styled('span', {
   fontSize: '1.7rem',
+});
+
+const ActionsGrid = styled('section', {
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
+  gridTemplateRows: '1fr 1fr',
+  gap: '2em',
+  height: '100%',
+  position: 'relative',
+});
+
+const ActionButton = styled('button', {
+  background: '$secondary',
+  border: 'none',
+  outline: 'none',
+  cursor: 'pointer',
+  borderRadius: '6px',
+  color: '$text',
+  padding: 0,
+
+  '&:hover': {
+    background: '$primary2',
+  },
 });
