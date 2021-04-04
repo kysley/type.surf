@@ -43,13 +43,13 @@ export function useLocalGame() {
       await mutate({
         input: {
           ...snap,
-          seed: wordsetData?.wordset?.seed || 'UNKNOWN',
+          seed: wordsetData?.Wordset?.seed || 'UNKNOWN',
         },
       });
       // socket.emit('client.stats', {stats});
       // return stats;
     },
-    [mutate, wordsetData?.wordset?.seed],
+    [mutate, wordsetData?.Wordset?.seed],
   );
 
   useEffect(() => {

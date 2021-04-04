@@ -15,7 +15,7 @@ export function useMe() {
 
   console.log('me');
   return {
-    user: data?.me || mockUser,
+    user: data?.Me || mockUser,
     fetching,
     error,
     reexec,

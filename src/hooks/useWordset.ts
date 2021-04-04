@@ -15,7 +15,7 @@ export function useWordset() {
       } else {
         res = await mut({length: 300});
       }
-      set(wordList, res.data?.wordset?.wordset?.split(',')!);
+      set(wordList, res.data?.Wordset?.wordset?.split(',')!);
     },
     [mut],
   );
