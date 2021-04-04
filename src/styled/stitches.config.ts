@@ -40,7 +40,7 @@ function preprocess({colors}: Theme): Theme {
 }
 
 export const {styled, css, global} = createCss({
-  insertMethod: 'append',
+  insertionMethod: 'append',
   theme: {
     ...preprocess(ishtarColors),
     // colors: {
