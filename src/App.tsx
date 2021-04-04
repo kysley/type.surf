@@ -12,12 +12,12 @@ import {
 } from './compositions/Multiplayer';
 import {Registration} from './compositions/Registration';
 import {Auth} from './compositions/Auth';
-import {Header} from './compositions/Header';
 import {useSocketConnection} from './hooks/useSocketHandler';
 import {Play} from './compositions/Play';
 import {styled} from './styled';
 import {Menu} from './compositions/Menu';
 import {useMe} from './hooks/api/useMe';
+import {UserPage} from './compositions/User';
 
 const AppContainer = styled('main', {
   display: 'grid',
@@ -89,6 +89,7 @@ function App() {
               {/* <Navigate  to='/play' /> */}
               <Route path="/" element={<Play />} />
               <Route path="play/:id" element={<LobbyComposition />} />
+              <Route path="/u/:id" element={<UserPage />} />
               <Route path="/1" element={<LobbyCompositionUNSAFE />} />
               <Route path="/register" element={<Registration />} />
               <Route path="/auth" element={<Auth />} />
