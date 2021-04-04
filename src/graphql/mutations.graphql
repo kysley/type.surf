@@ -9,8 +9,8 @@ mutation RegisterWithDiscord($access: String!, $type: String!) {
   }
 }
 
-mutation wordset($length: Int!, $seed: String) {
-  wordset(length: $length, seed: $seed) {
+mutation Wordset($length: Int!, $seed: String) {
+  Wordset(length: $length, seed: $seed) {
     wordset
     seed
   }

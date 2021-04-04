@@ -1,8 +1,18 @@
-query me {
-    me {
+query Me {
+    Me {
       username
       id
       discriminator
       level
     }
   }
+
+query User($userId: ID!) {
+  User(id: $userId) {
+    username
+    id
+    history {
+      wpm
+    }
+  }
+}

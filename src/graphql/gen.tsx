@@ -105,13 +105,18 @@ export enum SortOrder {
 
 export type Query = {
   __typename?: 'Query';
-  me?: Maybe<Account>;
+  Me?: Maybe<Account>;
+  User?: Maybe<Account>;
+};
+
+export type QueryUserArgs = {
+  id: Scalars['ID'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
   RegisterWithDiscord?: Maybe<AuthPayload>;
-  wordset?: Maybe<WordsetPayload>;
+  Wordset?: Maybe<WordsetPayload>;
   CreateResult?: Maybe<Result>;
 };
 
@@ -154,7 +159,7 @@ export type WordsetMutationVariables = Exact<{
 }>;
 
 export type WordsetMutation = {__typename?: 'Mutation'} & {
-  wordset?: Maybe<
+  Wordset?: Maybe<
     {__typename?: 'WordsetPayload'} & Pick<WordsetPayload, 'wordset' | 'seed'>
   >;
 };
@@ -170,11 +175,23 @@ export type CreateResultMutation = {__typename?: 'Mutation'} & {
 export type MeQueryVariables = Exact<{[key: string]: never}>;
 
 export type MeQuery = {__typename?: 'Query'} & {
-  me?: Maybe<
+  Me?: Maybe<
     {__typename?: 'Account'} & Pick<
       Account,
       'username' | 'id' | 'discriminator' | 'level'
     >
+  >;
+};
+
+export type UserQueryVariables = Exact<{
+  userId: Scalars['ID'];
+}>;
+
+export type UserQuery = {__typename?: 'Query'} & {
+  User?: Maybe<
+    {__typename?: 'Account'} & Pick<Account, 'username' | 'id'> & {
+        history: Array<{__typename?: 'Result'} & Pick<Result, 'wpm'>>;
+      }
   >;
 };
 
@@ -198,8 +215,8 @@ export function useRegisterWithDiscordMutation() {
   >(RegisterWithDiscordDocument);
 }
 export const WordsetDocument = gql`
-  mutation wordset($length: Int!, $seed: String) {
-    wordset(length: $length, seed: $seed) {
+  mutation Wordset($length: Int!, $seed: String) {
+    Wordset(length: $length, seed: $seed) {
       wordset
       seed
     }
@@ -225,8 +242,8 @@ export function useCreateResultMutation() {
   );
 }
 export const MeDocument = gql`
-  query me {
-    me {
+  query Me {
+    Me {
       username
       id
       discriminator
@@ -239,4 +256,21 @@ export function useMeQuery(
   options: Omit<Urql.UseQueryArgs<MeQueryVariables>, 'query'> = {},
 ) {
   return Urql.useQuery<MeQuery>({query: MeDocument, ...options});
+}
+export const UserDocument = gql`
+  query User($userId: ID!) {
+    User(id: $userId) {
+      username
+      id
+      history {
+        wpm
+      }
+    }
+  }
+`;
+
+export function useUserQuery(
+  options: Omit<Urql.UseQueryArgs<UserQueryVariables>, 'query'> = {},
+) {
+  return Urql.useQuery<UserQuery>({query: UserDocument, ...options});
 }
