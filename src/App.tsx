@@ -9,6 +9,7 @@ import {themeFactory} from './styled/themes/default';
 import {
   LobbyComposition,
   LobbyCompositionUNSAFE,
+  PlayMultipayer,
 } from './compositions/Multiplayer';
 import {Registration} from './compositions/Registration';
 import {Auth} from './compositions/Auth';
@@ -22,8 +23,8 @@ import {UserPage} from './compositions/User';
 const AppContainer = styled('main', {
   display: 'grid',
   gridTemplateAreas: "'left main right'",
-  gridTemplateColumns: '25vmin 8fr 1.75fr',
-  justifyContent: 'center',
+  gridTemplateColumns: '20vmin minmax(40vw, 60vw) auto',
+  justifyContent: 'space-between',
   minHeight: '100vh',
   gap: '3em',
 });
@@ -88,7 +89,8 @@ function App() {
             <Routes>
               {/* <Navigate  to='/play' /> */}
               <Route path="/" element={<Play />} />
-              <Route path="play/:id" element={<LobbyComposition />} />
+              <Route path="/play/*" element={<PlayMultipayer />} />
+              {/* <Route path="/play/:id" element={<LobbyComposition />} /> */}
               <Route path="/u/:id" element={<UserPage />} />
               <Route path="/1" element={<LobbyCompositionUNSAFE />} />
               <Route path="/register" element={<Registration />} />
@@ -96,6 +98,7 @@ function App() {
             </Routes>
             <Toaster />
           </Main>
+          <div style={{gridArea: 'right', width: '0'}}></div>
         </AppContainer>
       </Box>
     </ThemeProvider>

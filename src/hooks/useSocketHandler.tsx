@@ -1,4 +1,5 @@
-import React, {createContext, useContext, useRef} from 'react';
+import React, {createContext, useCallback, useContext, useRef} from 'react';
+import {useNavigate} from 'react-router';
 
 import {socket} from '../utils/socket';
 
@@ -16,6 +17,7 @@ export const SocketProvider: React.FC = ({children}) => {
 
 export function useSocketConnection() {
   const socket = useContext(SocketContext);
+  const navigate = useNavigate();
   // useEffect(() => {
   //   const s = socket;
   //   if (socket.disconnected) {
@@ -31,5 +33,11 @@ export function useSocketConnection() {
   //   else socket.connect();
   // }, [signal, socket]);
 
-  return {socket};
+  const queue = useCallback(() => {
+    socket.emit('client.queue', 'RACE', (roomId: string) => {
+      navigate(`/play/${roomId}`);
+    });
+  }, []);
+
+  return {socket, queue};
 }

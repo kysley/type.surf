@@ -21,7 +21,7 @@ export function Play() {
   return (
     <Box
       style={{position: 'relative'}}
-      width="72.3%"
+      width="100%"
       height="auto"
       justifyContent="center"
       justifySelf="center"

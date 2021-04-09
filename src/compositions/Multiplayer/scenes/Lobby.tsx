@@ -7,7 +7,7 @@ import {styled} from '../../../styled';
 
 const CompositionContainer = styled(Box, {
   display: 'grid',
-  gridArea: 'content',
+  // gridArea: 'content',
   gridTemplateAreas: "'name name' 'core rules' 'ready ready'",
   gridTemplateColumns: '3fr 1fr',
   gridTemplateRows: 'auto',

@@ -1,64 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import styled from 'styled-components';
-import {useRecoilCallback, useRecoilValue, useSetRecoilState} from 'recoil';
+import React from 'react';
+import {Route, Routes, useParams} from 'react-router-dom';
 
 import {useRoomConnection} from '../../hooks/useRoomConnection';
 import {LobbyScene} from './scenes/Lobby';
 import {StartedScene} from './scenes/Started';
-import {wordIndex, wordList, statsForNerds} from '../../state';
-import {useSocketConnection} from '../../hooks/useSocketHandler';
+import {styled} from '../../styled';
+import {MultiplayerHome} from './Home';
+import {useStateSync} from '../../hooks/useStateSync';
 
-const Container = styled('div')({
-  display: 'grid',
-  gridGap: '1em',
-  gridTemplateAreas: '"gl content gr"',
-  gridTemplateColumns: '300px 1fr 100px',
-  gridArea: 'main',
-});
-
-function useStateSync() {
-  const wI = useRecoilValue(wordIndex);
-  const {socket} = useSocketConnection();
-  const [roomState, setRoomState] = useState<{
-    players: any[];
-    id: string;
-    name: string;
-    state: 'LOBBY' | 'STARTED' | 'PAUSED' | 'ENDING' | 'STARTING';
-    words: string[];
-  }>();
-  const setWordList = useSetRecoilState(wordList);
-
-  useEffect(() => {
-    setWordList(roomState?.words || []);
-  }, [roomState?.words, setWordList]);
-
-  const getStats = useRecoilCallback(
-    ({snapshot}) => async () => {
-      const stats = await snapshot.getPromise(statsForNerds);
-      socket.emit('client.stats', {stats});
-      return stats;
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-
-  useEffect(() => {
-    getStats();
-  }, [getStats, wI]);
-
-  useEffect(() => {
-    socket.on('server.room.broadcast', (roomData: any) => {
-      console.log(roomData);
-      setRoomState((prev) => ({...prev, ...roomData}));
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return {
-    roomState,
-  };
-}
+const Container = styled('div', {});
 
 const LobbyComposition = () => {
   const {id} = useParams();
@@ -70,11 +20,23 @@ const LobbyComposition = () => {
       <>
         {roomState?.state === 'LOBBY' && <LobbyScene roomState={roomState} />}
         {(roomState?.state === 'STARTED' ||
-          roomState?.state === 'STARTING') && (
+          roomState?.state === 'STARTING' ||
+          roomState?.state === 'WAITING') && (
           <StartedScene roomState={roomState} />
         )}
       </>
     </Container>
+  );
+};
+
+const PlayMultipayer = () => {
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<MultiplayerHome />} />
+        <Route path=":id" element={<LobbyComposition />} />
+      </Routes>
+    </div>
   );
 };
 
@@ -126,4 +88,4 @@ const LobbyCompositionUNSAFE = () => {
   );
 };
 
-export {LobbyComposition, LobbyCompositionUNSAFE};
+export {LobbyComposition, LobbyCompositionUNSAFE, PlayMultipayer};
