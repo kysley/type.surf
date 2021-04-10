@@ -61,6 +61,7 @@ export const TypingPractice = ({obfuscate = false}) => {
           </animated.div>
         ) : (
           <animated.div key={key} style={{...props, width: '100%'}}>
+            {/* <TypingResults /> */}
             <ActionBar />
             <HiddenTextArea ref={textAreaRef} onKeyDown={inputHandler} />
             <CaptureFocus>

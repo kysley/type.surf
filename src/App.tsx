@@ -11,7 +11,7 @@ import {
   LobbyCompositionUNSAFE,
   PlayMultipayer,
 } from './compositions/Multiplayer';
-import {Registration} from './compositions/Registration';
+import {Registration} from './compositions/Auth/Registration';
 import {Auth} from './compositions/Auth';
 import {useSocketConnection} from './hooks/useSocketHandler';
 import {Play} from './compositions/Play';
@@ -19,11 +19,12 @@ import {styled} from './styled';
 import {Menu} from './compositions/Menu';
 import {useMe} from './hooks/api/useMe';
 import {UserPage} from './compositions/User';
+import {RegistrationModal} from './compositions/Auth/Registration/registration-modal';
 
 const AppContainer = styled('main', {
   display: 'grid',
   gridTemplateAreas: "'left main right'",
-  gridTemplateColumns: '20vmin minmax(40vw, 60vw) auto',
+  gridTemplateColumns: 'auto minmax(40vw, 60vw) auto',
   justifyContent: 'space-between',
   minHeight: '100vh',
   gap: '3em',
@@ -84,6 +85,7 @@ function App() {
         <AppContainer>
           <Menu />
           <Main>
+            <RegistrationModal />
             {/* <Header /> */}
             <DevTools />
             <Routes>

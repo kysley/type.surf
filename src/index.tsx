@@ -5,6 +5,7 @@ import {Provider as UrqlProvider} from 'urql';
 import {BrowserRouter} from 'react-router-dom';
 import '@reach/listbox/styles.css';
 import '@reach/menu-button/styles.css';
+import '@reach/dialog/styles.css';
 
 import App from './App';
 import {urqlClient} from './utils/urqlClient';
