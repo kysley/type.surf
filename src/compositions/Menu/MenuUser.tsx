@@ -13,7 +13,7 @@ export const MenuUser = () => {
       {user ? null : (
         <div>
           <Button>Sign Up</Button>
-          <Button type="secondary">Login</Button>
+          <Button variant="secondary">Login</Button>
         </div>
       )}
       <></>

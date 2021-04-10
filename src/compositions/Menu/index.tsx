@@ -6,6 +6,7 @@ import {styled} from '../../styled';
 import {MenuUser} from './MenuUser';
 
 const Container = styled('section', {
+  minWidth: '185px',
   height: '100%',
   gridArea: 'left',
   background: '$background2',
@@ -55,11 +56,11 @@ export const Menu = () => (
   <Container>
     <MenuBody>
       <MenuItem to="/">
-        <Zap />
+        {/* <Zap /> */}
         Practice
       </MenuItem>
       <MenuItem to="/play">
-        <Award />
+        {/* <Award /> */}
         Multiplayer
       </MenuItem>
     </MenuBody>

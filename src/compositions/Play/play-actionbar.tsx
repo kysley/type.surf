@@ -65,9 +65,9 @@ export function ActionBar() {
             <animated.div key={key} style={{...props, width: '100%'}}>
               <Stack
                 direction="row"
-                justifyContent="center"
-                alignSelf="center"
-                alignItems="center"
+                // justifyContent="center"
+                // alignSelf="center"
+                // alignItems="center"
               >
                 <Selection
                   callback={(v) => setModeState(v)}
@@ -92,7 +92,7 @@ export function ActionBar() {
           ),
         )}
       </Box>
-      <Button onClick={repeat} css={{gridColumn: 9}} type="secondary">
+      <Button onClick={repeat} css={{gridColumn: 9}} variant="secondary">
         <RefreshCw size="24px" strokeWidth="2px" />
       </Button>
       <Button onClick={reset} css={{gridColumn: 10}}>

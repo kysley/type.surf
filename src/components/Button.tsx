@@ -13,9 +13,10 @@ export const Button = styled('button', {
   // padding: '.75em 1.5em',
   width: '100%',
   boxShadow: '$base',
+  color: '$text',
 
   variants: {
-    type: {
+    variant: {
       primary: {
         color: '$background',
         background: '$primary',
@@ -39,6 +40,6 @@ export const Button = styled('button', {
   },
   defaultVariants: {
     size: 'medium',
-    type: 'primary',
+    variant: 'primary',
   },
 });

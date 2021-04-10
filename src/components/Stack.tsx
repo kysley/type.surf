@@ -1,23 +1,34 @@
-import styled from 'styled-components';
+import {styled} from '../styled';
 
-import {Box} from './Box';
+export const Stack = styled('div', {
+  boxSizing: 'border-box',
+  margin: 0,
+  minWidth: 0,
+  display: 'flex',
+  // flexDirection: direction,
+  position: 'relative',
 
-export const Stack = styled(Box)<{direction: 'row' | 'column'}>(
-  ({direction = 'column'}) => ({
-    boxSizing: 'border-box',
-    margin: 0,
-    minWidth: 0,
-    display: 'flex',
-    flexDirection: direction,
-    position: 'relative',
+  ':first-child': {
+    marginTop: 0,
+  },
 
-    '> *': {
-      marginTop: direction === 'column' ? '1rem' : undefined,
-      marginRight: direction === 'row' ? '1rem' : undefined,
+  variants: {
+    direction: {
+      col: {
+        flexDirection: 'column',
+        '> *': {
+          marginTop: '1rem',
+        },
+      },
+      row: {
+        flexDirection: 'row',
+        '> *': {
+          marginRight: '1rem',
+        },
+      },
     },
-
-    ':first-child': {
-      marginTop: undefined,
-    },
-  }),
-);
+  },
+  defaultVariants: {
+    direction: 'col',
+  },
+});
