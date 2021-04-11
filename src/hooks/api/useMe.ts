@@ -6,6 +6,7 @@ const mockUser = {
   username: 'Guest',
   discriminator: Math.floor(Math.random() * 9999),
   id: Math.floor(Math.random() * 9999) + 9999,
+  mock: true,
 };
 
 export function useMe() {

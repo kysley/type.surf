@@ -1,4 +1,4 @@
-import {ChevronsRight, CornerDownLeft, Share} from '@styled-icons/feather';
+import {ChevronBack, PlayBack, Share} from '@styled-icons/ionicons-outline';
 import React from 'react';
 import {useRecoilValue} from 'recoil';
 
@@ -24,10 +24,10 @@ export function TypingResults() {
       </StatsGrid>
       <ActionsGrid>
         <ActionButton onClick={repeat}>
-          <CornerDownLeft />
+          <PlayBack />
         </ActionButton>
         <ActionButton onClick={reset}>
-          <ChevronsRight />
+          <ChevronBack />
         </ActionButton>
         <ActionButton onClick={reset}>
           <Share />

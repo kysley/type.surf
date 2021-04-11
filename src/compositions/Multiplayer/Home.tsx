@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 import {useSocketConnection} from '../../hooks/useSocketHandler';
 
@@ -8,7 +9,7 @@ const MultiplayerHome = () => {
     <div>
       <div>daily challenge</div>
       <div onClick={queue}>Quick play</div>
-      <div>Private games</div>
+      <Link to="./create">Private games</Link>
     </div>
   );
 };

@@ -329,3 +329,14 @@ export const TypingProgressState = selector({
     return val;
   },
 });
+
+export const ModalState = atom<string | null>({
+  key: 'modalstate',
+  default: null,
+});
+
+export const ModalSelector = selectorFamily<boolean, string | null>({
+  key: 'modalselector',
+  get: (target) => ({get}) => get(ModalState) === target,
+  set: (target) => ({set}) => set(ModalState, target),
+});

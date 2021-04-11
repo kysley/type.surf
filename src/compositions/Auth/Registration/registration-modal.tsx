@@ -1,128 +1,31 @@
-import {DialogOverlay, DialogContent} from '@reach/dialog';
 import React from 'react';
-import {useForm} from 'react-hook-form';
-import {useTransition} from 'react-spring';
-import {animated} from 'react-spring';
+import {useRecoilValue} from 'recoil';
+
 import {Button} from '../../../components/Button';
-import {Stack} from '../../../components/Stack';
-
-import {styled} from '../../../styled';
-
-const StyledDialogContent = styled(DialogContent, {
-  // width: '100%',
-  // height: '100%',
-  padding: '1em',
-  background: '$background3',
-  color: '$text',
-  maxWidth: '25vw',
-  justifyContent: 'center',
-  display: 'flex',
-  flexDirection: 'column',
-});
-
-const AnimatedDialogOverlay = animated(DialogOverlay);
-
-const Title = styled('h1', {});
-
-type ModalProps = {
-  title: string;
-  visible: boolean;
-};
-export const Modal: React.FC<ModalProps> = ({children, title, visible}) => {
-  const transition = useTransition(visible, null, {
-    from: {opacity: 0, transform: 'translateY(-40px)'},
-    enter: {opacity: 1, transform: 'translateY(0px)'},
-    leave: {opacity: 0, transform: 'translateY(-40px)'},
-  });
-  return (
-    <>
-      {transition.map(
-        ({item, key, props}) =>
-          item && (
-            <AnimatedDialogOverlay key={key} style={props}>
-              <StyledDialogContent>
-                <Title>{title}</Title>
-                {children}
-              </StyledDialogContent>
-            </AnimatedDialogOverlay>
-          ),
-      )}
-    </>
-  );
-};
-
-const Input = styled('input', {
-  background: '$background2',
-  height: '40px',
-  padding: '10px',
-  borderRadius: '4px',
-  border: '1px solid $background3',
-  // borderColor: '$background3',
-  transition: 'border-color .2s ease-in-out',
-  outline: 'none',
-  color: '$text',
-
-  '&:hover': {
-    borderColor: '$secondary',
-  },
-
-  '&:focus': {
-    borderColor: '$primary',
-  },
-});
-
-type LabelledInputProps = {
-  type?: string;
-  label: string;
-};
-export const LabelledInput: React.FC<LabelledInputProps> = React.forwardRef(
-  ({type = undefined, label, ...rest}) => {
-    return (
-      <label
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          fontSize: '.78rem',
-          textTransform: 'uppercase',
-        }}
-      >
-        {label}
-        <Input type={type} {...rest} />
-      </label>
-    );
-  },
-);
+import {Modal} from '../../../components/Modal';
+import {ModalSelector} from '../../../state';
+import {RegistrationForm} from './registration-form';
 
 export const RegistrationModal = () => {
-  const {register, handleSubmit} = useForm();
-
-  const onSubmit = (d) => {
-    console.log('submit', d);
-  };
-
+  const visible = useRecoilValue(ModalSelector('registration'));
   return (
-    <Modal title="Join type.surf" visible>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack>
-          <LabelledInput
-            {...register('username', {required: true})}
-            label="username"
-          />
-          <LabelledInput
-            {...register('email', {required: true})}
-            type="email"
-            label="email"
-          />
-          <LabelledInput
-            {...(register('password'), {required: true})}
-            type="password"
-            label="password"
-          />
-          <Button type="submit" style={{fontWeight: 'bold'}}>
-            Continue
-          </Button>
-        </Stack>
-      </form>
+    <Modal title="Create an account" visible={visible}>
+      <RegistrationForm />
+      <span>or</span>
+      <a href="https://discord.com/api/oauth2/authorize?client_id=796965649506238525&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fauth&response_type=token&scope=identify%20email">
+        <Button variant="discord" style={{fontWeight: 'bold'}}>
+          <svg
+            width="35px"
+            fill="#fff"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path d="M464 66.52A50 50 0 00414.12 17L97.64 16A49.65 49.65 0 0048 65.52V392c0 27.3 22.28 48 49.64 48H368l-13-44 109 100zM324.65 329.81s-8.72-10.39-16-19.32C340.39 301.55 352.5 282 352.5 282a139 139 0 01-27.85 14.25 173.31 173.31 0 01-35.11 10.39 170.05 170.05 0 01-62.72-.24 184.45 184.45 0 01-35.59-10.4 141.46 141.46 0 01-17.68-8.21c-.73-.48-1.45-.72-2.18-1.21-.49-.24-.73-.48-1-.48-4.36-2.42-6.78-4.11-6.78-4.11s11.62 19.09 42.38 28.26c-7.27 9.18-16.23 19.81-16.23 19.81-53.51-1.69-73.85-36.47-73.85-36.47 0-77.06 34.87-139.62 34.87-139.62 34.87-25.85 67.8-25.12 67.8-25.12l2.42 2.9c-43.59 12.32-63.44 31.4-63.44 31.4s5.32-2.9 14.28-6.77c25.91-11.35 46.5-14.25 55-15.21a24 24 0 014.12-.49 205.62 205.62 0 0148.91-.48 201.62 201.62 0 0172.89 22.95s-19.13-18.15-60.3-30.45l3.39-3.86s33.17-.73 67.81 25.16c0 0 34.87 62.56 34.87 139.62 0-.28-20.35 34.5-73.86 36.19z" />
+            <path d="M212.05 218c-13.8 0-24.7 11.84-24.7 26.57s11.14 26.57 24.7 26.57c13.8 0 24.7-11.83 24.7-26.57.25-14.76-10.9-26.57-24.7-26.57zm88.38 0c-13.8 0-24.7 11.84-24.7 26.57s11.14 26.57 24.7 26.57c13.81 0 24.7-11.83 24.7-26.57S314 218 300.43 218z" />
+          </svg>
+          <span style={{marginLeft: '0.5rem'}}>Log in with Discord</span>
+        </Button>
+      </a>
     </Modal>
   );
 };

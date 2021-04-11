@@ -7,6 +7,7 @@ import {StartedScene} from './scenes/Started';
 import {styled} from '../../styled';
 import {MultiplayerHome} from './Home';
 import {useStateSync} from '../../hooks/useStateSync';
+import {PrivateCreate} from './PrivateGame/private-create';
 
 const Container = styled('div', {});
 
@@ -35,6 +36,7 @@ const PlayMultipayer = () => {
       <Routes>
         <Route path="/" element={<MultiplayerHome />} />
         <Route path=":id" element={<LobbyComposition />} />
+        <Route path="/create" element={<PrivateCreate />} />
       </Routes>
     </div>
   );

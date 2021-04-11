@@ -1,4 +1,3 @@
-import {Award, Zap} from '@styled-icons/feather';
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 

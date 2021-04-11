@@ -1,5 +1,5 @@
 import React from 'react';
-import {ChevronsRight, Minus, RefreshCw} from '@styled-icons/feather';
+import {ChevronBack, Remove, Refresh} from '@styled-icons/ionicons-outline';
 import {useTransition} from 'react-spring';
 import {animated} from 'react-spring';
 import {useRecoilState, useRecoilValue} from 'recoil';
@@ -78,7 +78,7 @@ export function ActionBar() {
                   defaultValue={modeState}
                   // prefix={Clock}
                 />
-                <Minus height="24px" strokeWidth="2px" />
+                <Remove height="24px" strokeWidth="2px" />
                 <Selection
                   callback={(v) => setOrbitState(+v)}
                   options={[
@@ -93,10 +93,10 @@ export function ActionBar() {
         )}
       </Box>
       <Button onClick={repeat} css={{gridColumn: 9}} variant="secondary">
-        <RefreshCw size="24px" strokeWidth="2px" />
+        <Refresh size="24px" strokeWidth="2px" />
       </Button>
       <Button onClick={reset} css={{gridColumn: 10}}>
-        <ChevronsRight size="24px" strokeWidth="2px" />
+        <ChevronBack size="24px" strokeWidth="2px" />
       </Button>
     </Box>
   );

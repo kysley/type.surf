@@ -9,24 +9,30 @@ export const Button = styled('button', {
   outline: 0,
   border: 'none',
   cursor: 'pointer',
-  fontSize: '1rem',
+  fontSize: '16px',
   // padding: '.75em 1.5em',
   width: '100%',
   boxShadow: '$base',
   color: '$text',
+  transition: 'background .2s ease-in-out',
 
   variants: {
     variant: {
       primary: {
-        color: '$background',
-        background: '$primary',
+        backgroundColor: '$primary',
         '&:hover': {
-          background: '$primary2',
+          backgroundColor: '$primary2',
         },
       },
       secondary: {
-        color: '$background',
-        background: '$secondary',
+        backgroundColor: '$secondary',
+      },
+      discord: {
+        color: '#fff',
+        backgroundColor: '#7289da',
+        '&:hover': {
+          backgroundColor: '#677bc4',
+        },
       },
     },
     size: {

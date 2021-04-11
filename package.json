@@ -12,7 +12,7 @@
     "@reach/listbox": "^0.14.0",
     "@reach/menu-button": "^0.14.0",
     "@stitches/react": "0.1.4",
-    "@styled-icons/feather": "^10.18.0",
+    "@styled-icons/ionicons-outline": "^10.28.0",
     "@styled-system/css": "^5.1.5",
     "color2k": "^1.2.4",
     "graphql": "^15.5.0",

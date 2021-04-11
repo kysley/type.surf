@@ -16,7 +16,6 @@ export const MenuUser = () => {
           <Button variant="secondary">Login</Button>
         </div>
       )}
-      <></>
       <MUContainer>
         <UserIcon />
         <div>

@@ -1,5 +1,5 @@
 import {Menu, MenuButton, MenuItem, MenuList} from '@reach/menu-button';
-import {Hexagon} from '@styled-icons/feather';
+import {Cube} from '@styled-icons/ionicons-outline';
 import React from 'react';
 
 import {useMe} from '../../hooks/api/useMe';
@@ -89,7 +89,7 @@ export const Header = () => {
                 {user.level}
               </div>
               <div>
-                <Hexagon size="18" stroke="3px" />
+                <Cube size="18" stroke="3px" />
                 {user.exp}
               </div>
             </Box>

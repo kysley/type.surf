@@ -6,7 +6,7 @@ import {
   ListboxList,
   ListboxOption,
 } from '@reach/listbox';
-import {Check} from '@styled-icons/feather';
+import {Checkmark} from '@styled-icons/ionicons-outline';
 
 import {styled} from '../../styled';
 
@@ -118,7 +118,7 @@ export function Selection({
             <StyledListboxOption value={opt.value} key={opt.key || opt.value}>
               {opt.label || opt.value}
               {value === opt.value && (
-                <Check
+                <Checkmark
                   height="15px"
                   strokeWidth="3px"
                   style={{paddingLeft: '0.5em'}}

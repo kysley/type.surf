@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import {useRecoilValue, useSetRecoilState} from 'recoil';
 import {useSpring, animated} from 'react-spring';
-import {ArrowDownCircle} from '@styled-icons/feather';
+import {ArrowDownCircle} from '@styled-icons/ionicons-outline';
 
 import {wordIndex, focusedState, renderRange} from '../../state';
 import Word from '../../components/Word';
