@@ -12,9 +12,9 @@ export const Button = styled('button', {
   fontSize: '16px',
   // padding: '.75em 1.5em',
   width: '100%',
-  boxShadow: '$base',
+  // boxShadow: '$base',
   color: '$text',
-  transition: 'background .2s ease-in-out',
+  transition: 'background,border .2s ease-in-out',
 
   variants: {
     variant: {
@@ -32,6 +32,21 @@ export const Button = styled('button', {
         backgroundColor: '#7289da',
         '&:hover': {
           backgroundColor: '#677bc4',
+        },
+      },
+      link: {
+        textDecoration: 'underline',
+        backgroundColor: 'transparent',
+        '&:hover': {
+          textDecoration: 'none',
+        },
+      },
+      outline: {
+        border: '1px solid $secondary',
+        backgroundColor: 'transparent',
+
+        '&:hover': {
+          border: '1px solid $text',
         },
       },
     },

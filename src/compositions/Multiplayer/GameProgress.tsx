@@ -4,33 +4,6 @@ import {animated} from 'react-spring';
 import {Box} from '../../components/Box';
 import {styled} from '../../styled';
 
-const ProgressContainer = styled('div', {
-  display: 'flex',
-  gridArea: 'gl',
-});
-
-const List = styled(animated.ul, {
-  position: 'relative',
-  listStyle: 'none',
-  display: 'grid',
-  gridAutoRows: '50px',
-  gap: '1em',
-  alignSelf: 'center',
-  margin: 0,
-  padding: 0,
-  width: '80%',
-  // opacity: 0.5,
-});
-
-const ListItem = styled(animated.li, {
-  padding: '.51em',
-  display: 'grid',
-  gap: '1em',
-  position: 'relative',
-  color: '$text',
-  opacity: 0.4,
-});
-
 export const Progress = ({players}: {players: any[]}) => {
   // const transitions = useTransition(players, (player) => player.id, {
   //   from: {height: 0, opacity: 0},
@@ -83,3 +56,30 @@ export const Progress = ({players}: {players: any[]}) => {
     </ProgressContainer>
   );
 };
+
+const ProgressContainer = styled('div', {
+  display: 'flex',
+  gridArea: 'gl',
+});
+
+const List = styled(animated.ul, {
+  position: 'relative',
+  listStyle: 'none',
+  display: 'grid',
+  gridAutoRows: '50px',
+  gap: '1em',
+  alignSelf: 'center',
+  margin: 0,
+  padding: 0,
+  width: '80%',
+  // opacity: 0.5,
+});
+
+const ListItem = styled(animated.li, {
+  padding: '.51em',
+  display: 'grid',
+  gap: '1em',
+  position: 'relative',
+  color: '$text',
+  opacity: 0.4,
+});

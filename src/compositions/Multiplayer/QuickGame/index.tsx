@@ -15,17 +15,7 @@ export const QuickGame = () => {
   if (!roomState) {
     return <h1>no room yet show placeholder!</h1>;
   }
-  // return (
-  //   <Container>
-  //     <>
-  //       {roomState?.state === 'LOBBY' && <LobbyScene roomState={roomState} />}
-  //       {(roomState?.state === 'STARTED' ||
-  //         roomState?.state === 'STARTING') && (
-  //         <StartedScene roomState={roomState} />
-  //       )}
-  //     </>
-  //   </Container>
-  // );
+
   return (
     <>
       <Box

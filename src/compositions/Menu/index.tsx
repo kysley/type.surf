@@ -5,7 +5,7 @@ import {styled} from '../../styled';
 import {MenuUser} from './MenuUser';
 
 const Container = styled('section', {
-  minWidth: '185px',
+  width: '185px',
   height: '100%',
   gridArea: 'left',
   background: '$background2',

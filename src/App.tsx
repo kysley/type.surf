@@ -6,11 +6,7 @@ import {v4} from 'uuid';
 
 import {DevTools} from './components/DevTools';
 import {themeFactory} from './styled/themes/default';
-import {
-  LobbyComposition,
-  LobbyCompositionUNSAFE,
-  PlayMultipayer,
-} from './compositions/Multiplayer';
+import {PlayMultipayer} from './compositions/Multiplayer';
 import {Registration} from './compositions/Auth/Registration';
 import {Auth} from './compositions/Auth';
 import {useSocketConnection} from './hooks/useSocketHandler';
@@ -20,27 +16,6 @@ import {Menu} from './compositions/Menu';
 import {useMe} from './hooks/api/useMe';
 import {UserPage} from './compositions/User';
 import {RegistrationModal} from './compositions/Auth/Registration/registration-modal';
-
-const AppContainer = styled('main', {
-  display: 'grid',
-  gridTemplateAreas: "'left main right'",
-  gridTemplateColumns: 'auto minmax(40vw, 60vw) auto',
-  justifyContent: 'space-between',
-  minHeight: '100vh',
-  gap: '3em',
-});
-
-const Main = styled('div', {
-  display: 'grid',
-  gridArea: 'main',
-});
-
-const Box = styled('div', {
-  color: '$text',
-  background: '$background',
-  width: '100vw',
-  margin: 'auto',
-});
 
 //@ts-ignore
 const theme = themeFactory({
@@ -86,16 +61,12 @@ function App() {
           <Menu />
           <Main>
             <RegistrationModal />
-            {/* <Header /> */}
             <DevTools />
             <Routes>
-              {/* <Navigate  to='/play' /> */}
               <Route path="/" element={<Play />} />
-              <Route path="/play/*" element={<PlayMultipayer />} />
-              {/* <Route path="/play/:id" element={<LobbyComposition />} /> */}
-              <Route path="/u/:id" element={<UserPage />} />
-              <Route path="/1" element={<LobbyCompositionUNSAFE />} />
-              <Route path="/register" element={<Registration />} />
+              <Route path="play/*" element={<PlayMultipayer />} />
+              <Route path="u/:id" element={<UserPage />} />
+              <Route path="register" element={<Registration />} />
               <Route path="/auth" element={<Auth />} />
             </Routes>
             <Toaster />
@@ -108,3 +79,24 @@ function App() {
 }
 
 export default App;
+
+const AppContainer = styled('main', {
+  display: 'grid',
+  gridTemplateAreas: "'left main right'",
+  gridTemplateColumns: '1.75fr 6fr 1.75fr',
+  justifyContent: 'space-between',
+  minHeight: '100vh',
+  gap: '6em',
+});
+
+const Main = styled('div', {
+  display: 'grid',
+  gridArea: 'main',
+});
+
+const Box = styled('div', {
+  color: '$text',
+  background: '$background',
+  width: '100vw',
+  margin: 'auto',
+});
